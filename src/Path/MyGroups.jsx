@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../Components/SideBar";
 import { useTranslation } from "react-i18next";
 import "../index.css";
-import { getUserForums } from "../Services/forumsApi";
+import { getUserForums, forumPosts } from "../Services/forumsApi";
 // import { useNavigate } from "react-router-dom";
 import GROUPIMAGE from "../assets/GroupImage.avif";
 
@@ -10,6 +10,19 @@ const MyGroups = () => {
 	const { t } = useTranslation();
 	const [forums, setForums] = useState([]);
 	const [, setIsLoggedIn] = useState(false);
+	const [error, setError] = useState({
+		title: "",
+		description: "",
+		cityId: "",
+		forumId: ""
+	});
+
+	const [input, setInput] = useState({
+		cityId: 0,
+		title: "",
+		description: "",
+		forumId: 1
+	});
 
 	useEffect(() => {
 		const accessToken =
@@ -27,8 +40,76 @@ const MyGroups = () => {
 		});
 	}, []);
 	const [pageNo, setPageNo] = useState(1);
+	useEffect(() => {
+		const searchParams = new URLSearchParams(window.location.search);
+		const cityId = searchParams.get("cityId");
+		const forumId = searchParams.get("forumId");
+		setInput((prevInput) => ({
+			...prevInput,
+			cityId: parseInt(cityId),
+			forumId: parseInt(forumId)
+		}));
+	}, []);
 
-	// const navigate = useNavigate();
+	const createForumPost = async (event) => {
+		event.preventDefault();
+		let valid = true;
+
+		for (const key in error) {
+			const errorMessage = getErrorMessage(key, input[key]);
+			setError((prevError) => ({ ...prevError, [key]: errorMessage }));
+			if (errorMessage) {
+				valid = false;
+			}
+		}
+
+		if (valid) {
+			try {
+				const postData = {
+					title: input.title,
+					description: input.description
+				};
+				const response = await forumPosts(input.cityId, input.forumId, postData);
+				console.log(response.data);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
+	const getErrorMessage = (name, value) => {
+		switch (name) {
+			case "title":
+				if (!value) {
+					return t("pleaseEnterTitle");
+				} else {
+					return "";
+				}
+
+			case "cityId":
+				if (!parseInt(value)) {
+					return t("pleaseSelectCity");
+				} else {
+					return "";
+				}
+			case "forumId":
+				if (!parseInt(value)) {
+					return t("pleaseSelectForum");
+				} else {
+					return "";
+				}
+			case "description":
+				if (!value) {
+					return t("pleaseEnterDescription");
+				} else {
+					return "";
+				}
+			default:
+				return "";
+		}
+	};
+
+
+	// const navigate = useNavigate(); forumPosts
 	// const navigateTo = (path) => {
 	// 	if (path) {
 	// 		navigate(path);

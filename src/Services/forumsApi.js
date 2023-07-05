@@ -32,3 +32,7 @@ export async function imageUpload(cityId, forumsId) {
 export async function imageUpdate(cityId, forumsId) {
 	return axios.patch(`/cities/${cityId}/forums/${forumsId}/imageUpload`);
 }
+
+export async function forumPosts(cityId, forumsId, forumData) {
+	return axios.post(`/cities/${cityId}/forums/${forumsId}/post`, forumData);
+}
