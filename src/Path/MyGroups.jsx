@@ -3,26 +3,12 @@ import SideBar from "../Components/SideBar";
 import { useTranslation } from "react-i18next";
 import "../index.css";
 import { getUserForums, forumPosts } from "../Services/forumsApi";
-// import { useNavigate } from "react-router-dom";
 import GROUPIMAGE from "../assets/GroupImage.avif";
 
 const MyGroups = () => {
 	const { t } = useTranslation();
 	const [forums, setForums] = useState([]);
 	const [, setIsLoggedIn] = useState(false);
-	const [error, setError] = useState({
-		title: "",
-		description: "",
-		cityId: "",
-		forumId: ""
-	});
-
-	const [input, setInput] = useState({
-		cityId: 0,
-		title: "",
-		description: "",
-		forumId: 1
-	});
 
 	useEffect(() => {
 		const accessToken =
@@ -40,76 +26,31 @@ const MyGroups = () => {
 		});
 	}, []);
 	const [pageNo, setPageNo] = useState(1);
-	useEffect(() => {
-		const searchParams = new URLSearchParams(window.location.search);
-		const cityId = searchParams.get("cityId");
-		const forumId = searchParams.get("forumId");
-		setInput((prevInput) => ({
-			...prevInput,
-			cityId: parseInt(cityId),
-			forumId: parseInt(forumId)
-		}));
-	}, []);
+
 
 	const createForumPost = async (event) => {
+		// const searchParams = new URLSearchParams(window.location.search);
+		// const cityId = searchParams.get("cityId");
+		// const forumId = searchParams.get("forumId");
+		const cityId = 1
+		const forumId = 15
 		event.preventDefault();
-		let valid = true;
 
-		for (const key in error) {
-			const errorMessage = getErrorMessage(key, input[key]);
-			setError((prevError) => ({ ...prevError, [key]: errorMessage }));
-			if (errorMessage) {
-				valid = false;
-			}
-		}
-
-		if (valid) {
-			try {
-				const postData = {
-					title: input.title,
-					description: input.description
-				};
-				const response = await forumPosts(input.cityId, input.forumId, postData);
-				console.log(response.data);
-			} catch (error) {
-				console.error(error);
-			}
-		}
-	};
-	const getErrorMessage = (name, value) => {
-		switch (name) {
-			case "title":
-				if (!value) {
-					return t("pleaseEnterTitle");
-				} else {
-					return "";
-				}
-
-			case "cityId":
-				if (!parseInt(value)) {
-					return t("pleaseSelectCity");
-				} else {
-					return "";
-				}
-			case "forumId":
-				if (!parseInt(value)) {
-					return t("pleaseSelectForum");
-				} else {
-					return "";
-				}
-			case "description":
-				if (!value) {
-					return t("pleaseEnterDescription");
-				} else {
-					return "";
-				}
-			default:
-				return "";
+		try {
+			const postData = {
+				title: "TestTitle",
+				description: "TestDescription"
+			};
+			const response = await forumPosts(cityId, forumId, postData);
+			console.log(response.data);
+		} catch (error) {
+			console.error(error);
 		}
 	};
 
 
-	// const navigate = useNavigate(); forumPosts
+
+	// const navigate = useNavigate();
 	// const navigateTo = (path) => {
 	// 	if (path) {
 	// 		navigate(path);
@@ -212,6 +153,7 @@ const MyGroups = () => {
 							})}
 						</tbody>
 					</table>
+
 				</div>
 				<div className="bottom-5 right-5 mt-5 px-1 py-2 text-xs font-medium text-center text-white bg-black rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 float-right cursor-pointer">
 					{pageNo !== 1 ? (
@@ -242,6 +184,7 @@ const MyGroups = () => {
 						</span>
 					)}
 				</div>
+				<button onClick={createForumPost}>click to test create a post</button>
 			</div>
 		</section>
 	);
