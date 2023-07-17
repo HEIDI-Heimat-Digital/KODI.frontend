@@ -17,8 +17,9 @@ import EventDetails from "./Path/SubPages/EventDetails";
 import AllEvents from "./Path/SubPages/AllEvents";
 import AllForums from "./Path/SubPages/AllForums";
 import ViewProfile from "./Path/SubPages/ViewProfile";
-import CitizenService from "./Path/SubPages/CitizenService";
-
+import CitizenService from "./Path/CitizenService";
+import DigitalCityHall from "./Path/CitizenServices/DigitalCityHall";
+import Forums from "./Path/CitizenServices/Forums";
 import OverviewPage from "./Path/Listings/OverviewPage";
 import OverviewPageNewsCategories from "./Path/Listings/OverviewPageNewsCategories";
 import UploadListings from "./Path/UploadListings";
@@ -33,6 +34,9 @@ import PasswordForgot from "./Path/PasswordForgot";
 import PasswordUpdate from "./Path/PasswordUpdate";
 import HeidiLogo from "./assets/HEIDI_Logo.png";
 import "./i18n";
+
+import ViewPost from "./Path/ViewPost";
+import GroupMembers from "./Path/GroupMembers";
 
 const App = () => {
 	useEffect(() => {
@@ -57,6 +61,8 @@ const App = () => {
 					<Route path="/AllEvents" element={<AllEvents />} />
 					<Route path="/ViewProfile" element={<ViewProfile />} />
 					<Route path="/CitizenService" element={<CitizenService />} />
+					<Route path="/CitizenService/DigitalCityHall" element={<DigitalCityHall />} />
+					<Route path="/CitizenService/Forums" element={<Forums />} />
 
 					<Route path="/Dashboard" element={<Dashboard />} exact />
 					<Route path="/DashboardAdmin" element={<Dashboard />} exact />
@@ -68,8 +74,6 @@ const App = () => {
 						exact
 					/>
 					<Route path="/UploadListings" element={<UploadListings />} exact />
-					<Route path="/CreateGroup" element={<CreateGroup />} exact />
-					<Route path="/MyGroups" element={<MyGroups />} exact />
 					<Route path="/AllForums" element={<AllForums />} />
 					<Route path="/ProfilePage" element={<ProfilePage />} />
 					<Route path="/PasswordForgot" element={<PasswordForgot />} />
@@ -89,6 +93,15 @@ const App = () => {
 					/>
 					<Route path="/VerifyEmail" element={<VerifyEmail />} />
 					<Route path="*" element={<Error />} />
+
+					<Route path="/ViewPost" element={<ViewPost />} />
+					<Route path="/CreateGroup" element={<CreateGroup />} exact />
+					<Route path="/MyGroups" element={<MyGroups />} exact />
+					<Route
+						path="/MyGroups/GroupMembers"
+						element={<GroupMembers />}
+						exact
+					/>
 				</Routes>
 			</div>
 		</BrowserRouter>

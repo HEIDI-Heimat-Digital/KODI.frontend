@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import HomePageNavBar from "../../Components/HomePageNavBar";
+import HomePageNavBar from "../Components/HomePageNavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
 	sortByTitleAZ,
 	sortByTitleZA,
 	sortLatestFirst,
 	sortOldestFirst,
-} from "../../Services/helper";
-import LISTINGSIMAGE from "../../assets/ListingsImage.jpeg";
+} from "../Services/helper";
+import LISTINGSIMAGE from "../assets/ListingsImage.jpeg";
 import { useTranslation } from "react-i18next";
-import { getListings } from "../../Services/listingsApi";
-import { getCities } from "../../Services/cities";
-import { categoryById } from "../../Constants/categories";
-import Footer from "../../Components/Footer";
+import { getListings } from "../Services/listingsApi";
+import { getCities } from "../Services/cities";
+import { categoryById } from "../Constants/categories";
+import Footer from "../Components/Footer";
 
-const Events = () => {
-	window.scrollTo(0, 0);
+const GroupFeeds = () => {
+	// window.scrollTo(0, 0);
 	const { t } = useTranslation();
 	const [cityId, setCityId] = useState(null);
 	const [cities, setCities] = useState([]);
@@ -220,9 +220,9 @@ const Events = () => {
 						<div className="bg-white lg:px-10 md:px-5 sm:px-0 px-2 py-6 mt-10 mb-10 space-y-10 flex flex-col">
 							<div className="relative place-items-center bg-white mt-4 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-10 justify-start">
 								{listings &&
-									listings.map((listing, index) => (
+									listings.map((listing) => (
 										<div
-											key={index}
+											key={listing.id}
 											onClick={() => {
 												let url = `/HomePage/EventDetails?listingId=${listing.id}&cityId=${listing.cityId}`;
 												if (terminalViewParam === "true") {
@@ -347,4 +347,4 @@ const Events = () => {
 	);
 };
 
-export default Events;
+export default GroupFeeds;

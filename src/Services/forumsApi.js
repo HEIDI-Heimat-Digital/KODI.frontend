@@ -1,8 +1,18 @@
 import axios from "../api/axiosInstanceForum";
 import { getUserId } from "./usersApi";
+import getInstance from "../api/axiosInstance";
+const axios = getInstance(process.env.REACT_APP_FORUMS_API_BASE_URL)
 
 export async function getUserForums() {
 	return axios.get(`/users/${getUserId()}/forums`);
+}
+
+export async function getUserForumsPost(cityId, forumsId) {
+	return axios.get(`/cities/${cityId}/forums/${forumsId}/post`);
+}
+
+export async function getUserForumsMembers(cityId, forumsId) {
+	return axios.get(`/cities/${cityId}/forums/${forumsId}/members`);
 }
 
 export async function uploadImage(formData) {
@@ -21,8 +31,8 @@ export async function postForumsData(cityId, newForumDataObj) {
 	return axios.post(`/cities/${cityId}/forums`, newForumDataObj);
 }
 
-export async function deleteForums(cityId, listingsId) {
-	return axios.delete(`/cities/${cityId}/listings/${listingsId}`);
+export async function deleteForums(cityId, forumsId) {
+	return axios.delete(`/cities/${cityId}/forums/${forumsId}`);
 }
 
 export async function imageUpload(cityId, forumsId) {
