@@ -1,4 +1,4 @@
-import axios from "../api/axiosInstance";
+import axios from "../api/axiosInstanceForum";
 import { getUserId } from "./usersApi";
 
 export async function getUserForums() {
@@ -33,6 +33,10 @@ export async function imageUpdate(cityId, forumsId) {
 	return axios.patch(`/cities/${cityId}/forums/${forumsId}/imageUpload`);
 }
 
-export async function forumPosts(cityId, forumsId, forumData) {
-	return axios.post(`/cities/${cityId}/forums/${forumsId}/post`, forumData);
+export async function getAllForums(cityId, forumsId) {
+	return axios.get(`/cities/${cityId}/forums/`);
+}
+
+export async function forumPosts(cityId, forumsId) {
+	return axios.post(`/cities/${cityId}/forums/${forumsId}/`);
 }

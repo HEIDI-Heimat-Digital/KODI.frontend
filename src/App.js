@@ -15,6 +15,7 @@ import Favorites from "./Path/Favorites";
 
 import EventDetails from "./Path/SubPages/EventDetails";
 import AllEvents from "./Path/SubPages/AllEvents";
+import AllForums from "./Path/SubPages/AllForums";
 import ViewProfile from "./Path/SubPages/ViewProfile";
 import CitizenService from "./Path/SubPages/CitizenService";
 
@@ -69,6 +70,7 @@ const App = () => {
 					<Route path="/UploadListings" element={<UploadListings />} exact />
 					<Route path="/CreateGroup" element={<CreateGroup />} exact />
 					<Route path="/MyGroups" element={<MyGroups />} exact />
+					<Route path="/AllForums" element={<AllForums />} />
 					<Route path="/ProfilePage" element={<ProfilePage />} />
 					<Route path="/PasswordForgot" element={<PasswordForgot />} />
 					<Route path="/PasswordUpdate" element={<PasswordUpdate />} />
