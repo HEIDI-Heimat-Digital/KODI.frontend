@@ -1,6 +1,6 @@
-import axios from "../api/axiosInstance";
 import UAParser from "ua-parser-js";
-
+import { instance } from "../api/axiosInstance";
+const axios = instance;
 const parser = new UAParser();
 const userAgent = parser.getResult();
 if (userAgent.device.vendor === undefined) {
@@ -65,7 +65,7 @@ export async function verifyEmail(credentials) {
 }
 
 export async function login(credentials) {
-  return axios.post(`/users/login`, credentials, {headers});
+	return axios.post(`/users/login`, credentials, { headers });
 }
 
 export async function logout(credentials) {

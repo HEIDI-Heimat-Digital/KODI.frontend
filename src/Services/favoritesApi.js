@@ -1,6 +1,6 @@
-import axios from "../api/axiosInstance";
 import { getUserId } from "./usersApi";
-
+import { instance } from "../api/axiosInstance";
+const axios = instance;
 export async function getFavorites() {
     return axios.get(`/users/${getUserId()}/favorites`);
 }
@@ -12,6 +12,6 @@ export async function deleteListingsById(favoriteId) {
     return axios.delete(`/users/${getUserId()}/favorites/${favoriteId}`);
 }
 
-export async function postFavoriteListingsData( favoriteListing) {
+export async function postFavoriteListingsData(favoriteListing) {
     return axios.post(`/users/${getUserId()}/favorites`, favoriteListing);
 }

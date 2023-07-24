@@ -1,6 +1,6 @@
-import axios from "../api/axiosInstance";
 import { getUserId } from "./usersApi";
-
+import { instance } from "../api/axiosInstance";
+const axios = instance;
 export async function getAllListings() {
   return axios.get(`/listings`);
 }
@@ -38,11 +38,11 @@ export async function deleteListingImage(cityId, listingsId) {
 }
 
 export async function uploadPDF(formData) {
-	return axios.post(`/users/${getUserId()}/pdfUpload`, formData, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
-	});
+  return axios.post(`/users/${getUserId()}/pdfUpload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 export async function updateListingsData(
