@@ -158,6 +158,7 @@ function UploadListings() {
 		pdf: null,
 		startDate: "",
 		endDate: "",
+		expiryDate: "",
 		originalPrice: "",
 		villagedropdown: "",
 		zipCode: "",
@@ -394,6 +395,14 @@ function UploadListings() {
 				} else {
 					return "";
 				}
+			case "expiryDate":
+				if (parseInt(input.categoryId) == categoryByName.events) {
+					if (!value) {
+						return t("pleaseEnterExpiryDate");
+					}
+				} else {
+					return "";
+				}
 
 			default:
 				return "";
@@ -533,6 +542,11 @@ function UploadListings() {
 	function formatDateTime(dateTimeString) {
 		return dateTimeString.replace("T", " ");
 	}
+	const isExpiryDateVisible =
+		categoryId == categoryByName.news ||
+			categoryId == categoryByName.lostAndFound ||
+			categoryId == categoryByName.regionalProducts ||
+			categoryId == categoryByName.offerSearch ? true : false;
 
 	return (
 		<section className="bg-slate-600 body-font relative">
@@ -881,49 +895,91 @@ function UploadListings() {
 						</div>
 					)}
 
-					{(categoryId == categoryByName.offers ||
-						categoryId == categoryByName.regionalProducts) && (
-						<div className="relative mb-4 grid grid-cols-2 gap-4">
-							<div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
-								<label
-									for="place"
-									className="block text-sm font-medium text-gray-600"
-								>
-									{t("originalPrice")}
-								</label>
-								<input
-									type="text"
-									id="originalPrice"
-									name="originalPrice"
-									value={input.originalPrice}
-									onChange={onInputChange}
-									onBlur={validateInput}
-									required
-									className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
-									placeholder="Enter the price of the product"
-								/>
-							</div>
-							<div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
-								<label
-									for="place"
-									className="block text-sm font-medium text-gray-600"
-								>
-									{t("discountedPrice")}
-								</label>
-								<input
-									type="text"
-									id="discountedPrice"
-									name="discountedPrice"
-									value={input.discountedPrice}
-									onChange={onInputChange}
-									onBlur={validateInput}
-									required
-									className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
-									placeholder="Enter the price of the product"
-								/>
+					{isExpiryDateVisible && (
+						<div className="relative mb-4">
+							<div className="items-stretch py-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div className="relative">
+									<div className="flex absolute inset-y-0 items-center pl-3 pointer-events-none">
+										<svg
+											aria-hidden="true"
+											className="w-5 h-5 text-gray-600 dark:text-gray-400"
+											fill="currentColor"
+											viewBox="0 0 20 20"
+											xmlns="http://www.w3.org/2000/svg"
+										></svg>
+									</div>
+									<label
+										for="expiryDate"
+										className="block text-sm font-medium text-gray-600"
+									>
+										{t("expiryDate")} *
+									</label>
+									<input
+										type="datetime-local"
+										id="expiryDate"
+										name="expiryDate"
+										value={input.expiryDate.replace("T", " ")}
+										onChange={onInputChange}
+										onBlur={validateInput}
+										className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-400 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
+										placeholder="Expiry Date"
+									/>
+									<div
+										className="h-[24px] text-red-600"
+										style={{
+											visibility: error.expiryDate ? "visible" : "hidden",
+										}}
+									>
+										{error.expiryDate}
+									</div>
+								</div>
 							</div>
 						</div>
+
 					)}
+					{(categoryId == categoryByName.offers ||
+						categoryId == categoryByName.regionalProducts) && (
+							<div className="relative mb-4 grid grid-cols-2 gap-4">
+								<div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
+									<label
+										for="place"
+										className="block text-sm font-medium text-gray-600"
+									>
+										{t("originalPrice")}
+									</label>
+									<input
+										type="text"
+										id="originalPrice"
+										name="originalPrice"
+										value={input.originalPrice}
+										onChange={onInputChange}
+										onBlur={validateInput}
+										required
+										className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
+										placeholder="Enter the price of the product"
+									/>
+								</div>
+								<div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
+									<label
+										for="place"
+										className="block text-sm font-medium text-gray-600"
+									>
+										{t("discountedPrice")}
+									</label>
+									<input
+										type="text"
+										id="discountedPrice"
+										name="discountedPrice"
+										value={input.discountedPrice}
+										onChange={onInputChange}
+										onBlur={validateInput}
+										required
+										className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
+										placeholder="Enter the price of the product"
+									/>
+								</div>
+							</div>
+						)}
 
 					<div className="relative mb-4">
 						<label
