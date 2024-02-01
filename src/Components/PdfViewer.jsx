@@ -33,24 +33,29 @@ const PDFDisplay = (url) => {
         >
             <Page pageNumber={pageNumber} />
         </Document>
-        <div>
+        <div className='items-center flex-col justify-center flex'>
             <p>
                 Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
             </p>
-            <button
-                type="button"
-                disabled={pageNumber <= 1}
-                onClick={previousPage}
-                >
-                Previous
-            </button>
-            <button
-                type="button"
-                disabled={pageNumber >= numPages}
-                onClick={nextPage}
-                >
-                Next
-            </button>
+            <div>
+                <button
+                    type="button"
+                    className='text-white bg-sky-500 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 text-base font-medium  sm:mt-0 sm:w-auto sm:text-sm'
+                    disabled={pageNumber <= 1}
+                    onClick={previousPage}
+                    >
+                    Previous
+                </button>
+                <span>{"    "}</span>
+                <button
+                    type="button"
+                    className='text-white bg-sky-500 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 text-base font-medium  sm:mt-0 sm:w-auto sm:text-sm'
+                    disabled={pageNumber >= numPages}
+                    onClick={nextPage}
+                    >
+                    Next
+                </button>
+            </div>
         </div>
         </>
     );
