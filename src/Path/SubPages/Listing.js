@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Viewer } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
 import PROFILEIMAGE from "../../assets/ProfilePicture.png";
 import HomePageNavBar from "../../Components/HomePageNavBar";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +20,7 @@ import {
 } from "../../Services/favoritesApi";
 import LoadingPage from "../../Components/LoadingPage";
 import { getCategory } from "../../Services/CategoryApi";
+import PDFDisplay from "../../Components/PdfViewer";
 
 const Description = ({ content }) => {
   const linkify = (text) => {
@@ -465,8 +464,16 @@ const Listing = () => {
                         <div>
                           <div className="pdf-container">
                             {terminalView ? (
-                              <Viewer
-                                fileUrl={
+                              // <Viewer
+                              //   fileUrl={
+                              //     process.env.REACT_APP_BUCKET_HOST + input.pdf
+                              //   }
+                              //   httpHeaders={{
+                              //     "Access-Control-Allow-Origin": "*",
+                              //   }}
+                              // />
+                              <PDFDisplay
+                                url={
                                   process.env.REACT_APP_BUCKET_HOST + input.pdf
                                 }
                               />
