@@ -3,4 +3,5 @@ bin/
 build/
 package.json/
 src\Path\Forums\UploadPosts.jsx/
+public/pdf.worker.js
 
