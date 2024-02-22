@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
+import QRCODE from "../../assets/QRCODE.png";
 
 const MyProducts = () => {
   const { t } = useTranslation();
@@ -173,6 +174,7 @@ const MyProducts = () => {
                       <td
                         className="px-6 py-4 text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
+                        onClick={() => navigateTo(`/AddNewProducts`)}
                       >
                         <a
                           className="font-medium text-blue-600 hover:underline cursor-pointer"
@@ -193,8 +195,7 @@ const MyProducts = () => {
                               products.image
                                 ? process.env.REACT_APP_BUCKET_HOST +
                                   products.image
-                                : process.env.REACT_APP_BUCKET_HOST +
-                                  "admin/DefaultForum.jpeg"
+                                : QRCODE
                             }
                             onClick={handleImageClick}
                             alt="avatar"
@@ -222,8 +223,7 @@ const MyProducts = () => {
                                     products.image
                                       ? process.env.REACT_APP_BUCKET_HOST +
                                         products.image
-                                      : process.env.REACT_APP_BUCKET_HOST +
-                                        "admin/DefaultForum.jpeg"
+                                      : QRCODE
                                   }
                                   alt="avatar"
                                 />
@@ -246,17 +246,6 @@ const MyProducts = () => {
                 })}
               </tbody>
             </table>
-          </div>
-
-          <div className="bottom-5 right-5 mt-5 px-1 py-2 text-xs font-medium text-center float-left cursor-pointer">
-            <button
-              type="button"
-              className="inline-block rounded-xl bg-black px-3 pb-2 pt-2 text-xs font-bold uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-neutral-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]"
-              style={{ fontFamily: "Poppins, sans-serif" }}
-              onClick={() => navigateTo("/AddNewProducts")}
-            >
-              {t("addNewProduct")}
-            </button>
           </div>
 
           <div className="bottom-5 right-5 mt-5 px-1 py-2 text-xs font-medium text-center float-right cursor-pointer bg-black rounded-xl">

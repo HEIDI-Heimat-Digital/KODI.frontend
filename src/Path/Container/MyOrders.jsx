@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SideBar from "../../Components/SideBar";
+import { ProductsTest } from "../../Constants/productsForSale";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../../index.css";
-import { getUserForums, deleteForums } from "../../Services/forumsApi";
+import { getUserForums } from "../../Services/forumsApi";
+import QRCODE from "../../assets/QRCODE.png";
+import { deleteListing } from "../../Services/listingsApi";
 
 const MyOrders = () => {
   const { t } = useTranslation();
   const [forums, setForums] = useState([]);
   const [pageNo, setPageNo] = useState(1);
+  const [products, setProducts] = useState([]);
   const pageSize = 9;
 
   const fetchForums = useCallback(() => {
@@ -35,34 +39,44 @@ const MyOrders = () => {
     }
   };
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleImageClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const [showConfirmationModal, setShowConfirmationModal] = useState({
     visible: false,
-    forums: null,
+    product: null,
     onConfirm: () => {},
     onCancel: () => {},
   });
 
-  function handleDelete(forum) {
-    deleteForums(forum.cityId, forum.forumId)
+  function handleDelete(product) {
+    deleteListing(product.cityId, product.id)
       .then((res) => {
-        getUserForums(
-          forums.filter(
-            (f) => f.cityId !== forum.cityId || f.forumId !== forum.forumId
+        setProducts(
+          products.filter(
+            (p) => p.cityId !== product.cityId || p.id !== product.id
           )
         );
-        console.log("Deleted successfully");
-
         setShowConfirmationModal({ visible: false });
+
+        // fetchUpdatedListings();
         window.location.reload();
       })
       .catch((error) => console.log(error));
   }
 
-  function deleteForumOnClick(forums) {
+  function deleteListingOnClick(product) {
     setShowConfirmationModal({
       visible: true,
-      forums,
-      onConfirm: () => handleDelete(forums),
+      product,
+      onConfirm: () => handleDelete(product),
       onCancel: () => setShowConfirmationModal({ visible: false }),
     });
   }
@@ -81,40 +95,30 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3"
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
-                    {t("serviceName")}
+                    {t("productName")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 sm:px-6 py-3 text-center"
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
-                    {t("client")}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 sm:px-6 py-3 text-center"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
-                    }}
-                  >
-                    {t("duration")}
+                    {t("price")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
-                    {t("from")}
+                    {t("stockLeft")}
                   </th>
 
                   <th
@@ -122,26 +126,27 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
-                    }}
-                  >
-                    {t("to")}
-                  </th>
-
-                  <th
-                    scope="col"
-                    className="px-6 sm:px-6 py-3 text-center "
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
                     {t("action")}
                   </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 sm:px-6 py-3 text-center "
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      width: "20%",
+                    }}
+                  >
+                    {t("qrCode")}
+                  </th>
                 </tr>
               </thead>
+
               <tbody>
-                {forums.map((forum, index) => {
+                {ProductsTest.map((products, index) => {
                   return (
                     <tr
                       key={index}
@@ -154,14 +159,15 @@ const MyOrders = () => {
                         <img
                           className="w-10 h-10 object-cover rounded-full hidden sm:table-cell"
                           src={
-                            forum.image
-                              ? process.env.REACT_APP_BUCKET_HOST + forum.image
+                            products.image
+                              ? process.env.REACT_APP_BUCKET_HOST +
+                                products.image
                               : process.env.REACT_APP_BUCKET_HOST +
                                 "admin/DefaultForum.jpeg"
                           }
                           onClick={() =>
                             navigateTo(
-                              `/Forum?forumId=${forum.forumId}&cityId=${forum.cityId}`
+                              `/Forum?forumId=${products.forumId}&cityId=${products.cityId}`
                             )
                           }
                           alt="avatar"
@@ -172,60 +178,44 @@ const MyOrders = () => {
                             style={{ fontFamily: "Poppins, sans-serif" }}
                             onClick={() =>
                               navigateTo(
-                                `/Forum?forumId=${forum.forumId}&cityId=${forum.cityId}`
+                                `/Forum?forumId=${products.forumId}&cityId=${products.cityId}`
                               )
                             }
                           >
-                            {forum.forumName}
+                            {products.productName}
                           </div>
                         </div>
                       </th>
 
                       <td
-                        className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                        className="px-6 py-4 text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
-                        onClick={() => navigateTo("/ViewProfile")}
                       >
-                        Akshay Sunilkumar
+                        {products.price}
+                      </td>
+
+                      <td
+                        className={`px-6 py-4 text-center ${
+                          products.itemsleft < 5
+                            ? "text-red-500"
+                            : "text-blue-600"
+                        }`}
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
+                        {products.itemsleft}
                       </td>
 
                       <td
                         className="px-6 py-4 text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
-                        2 hrs
-                      </td>
-
-                      <td
-                        className="px-6 py-4 text-center"
-                        style={{ fontFamily: "Poppins, sans-serif" }}
-                      >
-                        11:00
-                      </td>
-
-                      <td
-                        className="px-6 py-4 text-center"
-                        style={{ fontFamily: "Poppins, sans-serif" }}
-                      >
-                        12:30
-                      </td>
-                      <td className="px-6 py-4  text-center">
-                        {forum.isAdmin ? (
-                          <div>
-                            <a
-                              className="font-medium hover:underline cursor-pointer text-center"
-                              onClick={() => deleteForumOnClick(forum)}
-                              style={{
-                                fontFamily: "Poppins, sans-serif",
-                                color: "red",
-                              }}
-                            >
-                              {t("reject")}
-                            </a>
-                          </div>
-                        ) : (
-                          <div className="text-gray-500">{t("onlyAdmins")}</div>
-                        )}
+                        <a
+                          className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                          onClick={() => deleteListingOnClick(products)}
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
+                          {t("delete")}
+                        </a>
                         {showConfirmationModal.visible && (
                           <div className="fixed z-50 inset-0 overflow-y-auto">
                             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -267,7 +257,7 @@ const MyOrders = () => {
                                       </h3>
                                       <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                          {t("doyoureallywanttodeleteListing")}
+                                          {t("doyoureallywanttodeleteOrder")}
                                         </p>
                                       </div>
                                     </div>
@@ -286,6 +276,64 @@ const MyOrders = () => {
                                     onClick={showConfirmationModal.onCancel}
                                     type="button"
                                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                                  >
+                                    {t("cancel")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </td>
+
+                      <td
+                        className="px-6 py-4 text-center"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
+                        <div style={{ display: "inline-block" }}>
+                          <img
+                            className="w-10 h-10 object-cover rounded-full"
+                            src={
+                              products.image
+                                ? process.env.REACT_APP_BUCKET_HOST +
+                                  products.image
+                                : QRCODE
+                            }
+                            onClick={handleImageClick}
+                            alt="avatar"
+                          />
+                        </div>
+                        {showModal && (
+                          <div className="fixed z-50 inset-0 overflow-y-auto">
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <div
+                                className="fixed inset-0 transition-opacity"
+                                aria-hidden="true"
+                              >
+                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                              </div>
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <img
+                                  className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-white"
+                                  src={
+                                    products.image
+                                      ? process.env.REACT_APP_BUCKET_HOST +
+                                        products.image
+                                      : QRCODE
+                                  }
+                                  alt="avatar"
+                                />
+                                <div className="bg-gray-50 px-4 py-3 sm:px-6 text-center">
+                                  <button
+                                    onClick={handleCloseModal}
+                                    type="button"
+                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                                   >
                                     {t("cancel")}
                                   </button>
