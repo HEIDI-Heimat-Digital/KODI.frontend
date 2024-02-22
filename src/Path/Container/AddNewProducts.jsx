@@ -123,7 +123,6 @@ function AddNewProducts() {
   // Drag and Drop ends
 
   // Sending data to backend starts
-  const [val, setVal] = useState([{ socialMedia: "", selected: "" }]);
   const [input, setInput] = useState({
     categoryId: 0,
     subcategoryId: 0,
@@ -268,7 +267,6 @@ function AddNewProducts() {
         const listingData = listingsResponse.data.data;
         listingData.cityId = cityId;
         setInput(listingData);
-        setDescription(listingData.description);
         setCategoryId(listingData.categoryId);
         setSubcategoryId(listingData.subcategoryId);
         if (listingData.logo) {
@@ -313,8 +311,6 @@ function AddNewProducts() {
     validateInput(e);
   };
 
-  const [description, setDescription] = useState("");
-
   const onDescriptionChange = (newContent) => {
     let descriptionHTML = newContent;
 
@@ -341,7 +337,6 @@ function AddNewProducts() {
       ...prev,
       description: descriptionHTML,
     }));
-    setDescription(newContent);
   };
 
   const getErrorMessage = (name, value) => {
@@ -368,7 +363,7 @@ function AddNewProducts() {
         }
 
       case "subCategoryId":
-        if (!value && parseInt(input.categoryId) == 1) {
+        if (!value && parseInt(input.categoryId) === 1) {
           return t("pleaseSelectSubcategory");
         } else {
           return "";
@@ -384,7 +379,7 @@ function AddNewProducts() {
         }
 
       case "startDate":
-        if (!value && parseInt(input.categoryId) == 3) {
+        if (!value && parseInt(input.categoryId) === 3) {
           return t("pleaseEnterStartDate");
         } else {
           return "";
@@ -407,8 +402,8 @@ function AddNewProducts() {
   };
 
   const validateInput = (e) => {
-    let { name, value } = e.target;
-    var errorMessage = getErrorMessage(name, value);
+    const { name, value } = e.target;
+    const errorMessage = getErrorMessage(name, value);
     setError((prevState) => {
       return { ...prevState, [name]: errorMessage };
     });
@@ -423,15 +418,8 @@ function AddNewProducts() {
   useEffect(() => {
     setInput((prevState) => ({
       ...prevState,
-      selected: val.map((item) => item.selected),
     }));
-  }, [val]);
-
-  const handleDelete = (index) => {
-    const list = [...val];
-    list.splice(index, 1);
-    setVal(list);
-  };
+  }, []);
 
   // const [date, setDate] = useState();
   const [cityId, setCityId] = useState(0);
@@ -453,9 +441,9 @@ function AddNewProducts() {
   const [subcategoryId, setSubcategoryId] = useState(0);
 
   const handleCategoryChange = async (event) => {
-    let categoryId = event.target.value;
+    const categoryId = event.target.value;
     setCategoryId(categoryId);
-    if (categoryId == 1) {
+    if (categoryId === 1) {
       const subCats = await getNewsSubCategory();
       const subcatList = {};
       subCats?.data.data.forEach((subCat) => {
@@ -475,7 +463,7 @@ function AddNewProducts() {
   };
 
   const handleSubcategoryChange = (event) => {
-    let subcategoryId = event.target.value;
+    const subcategoryId = event.target.value;
     setSubcategoryId(subcategoryId);
     setInput((prevInput) => ({ ...prevInput, subcategoryId }));
     validateInput(event);
@@ -500,20 +488,6 @@ function AddNewProducts() {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
   }
-
-  const getDefaultEndDate = () => {
-    const now = new Date();
-    const twoWeeksLater = new Date(now.getTime() + 2 * 7 * 24 * 60 * 60 * 1000); // 2 weeks in milliseconds
-
-    const year = twoWeeksLater.getFullYear();
-    const month = String(twoWeeksLater.getMonth() + 1).padStart(2, "0");
-    const day = String(twoWeeksLater.getDate()).padStart(2, "0");
-    const hours = String(twoWeeksLater.getHours()).padStart(2, "0");
-    const minutes = String(twoWeeksLater.getMinutes()).padStart(2, "0");
-
-    // Format: yyyy-MM-ddThh:mm
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-  };
 
   return (
     <section className="bg-slate-600 body-font relative h-screen">
@@ -660,7 +634,7 @@ function AddNewProducts() {
             </div>
           </div>
 
-          {categoryId == 1 && (
+          {categoryId === 1 && (
             <div className="relative mb-4">
               <label
                 htmlFor="subcategoryId"
@@ -701,7 +675,7 @@ function AddNewProducts() {
             </div>
           )}
 
-          {categoryId == 3 && (
+          {categoryId === 3 && (
             <div className="relative mb-4">
               <div className="items-stretch py-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
@@ -802,11 +776,11 @@ function AddNewProducts() {
             </div>
           </div>
 
-          {(categoryId == 12 || categoryId == 5) && (
+          {(categoryId === 12 || categoryId === 5) && (
             <div className="relative mb-4 grid grid-cols-2 gap-4">
               <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
                 <label
-                  for="place"
+                  htmlFor="place"
                   className="block text-sm font-medium text-gray-600"
                 >
                   {t("originalPrice")}
@@ -825,7 +799,7 @@ function AddNewProducts() {
               </div>
               <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
                 <label
-                  for="place"
+                  htmlFor="place"
                   className="block text-sm font-medium text-gray-600"
                 >
                   {t("discountedPrice")}
@@ -958,6 +932,7 @@ function AddNewProducts() {
                   <p>
                     <a
                       target="_blank"
+                      rel="noreferrer"
                       href={
                         localImageOrPdf ? URL.createObjectURL(pdf) : pdf.link
                       }

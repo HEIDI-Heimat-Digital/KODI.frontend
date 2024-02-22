@@ -663,7 +663,7 @@ function UploadListings() {
             </div>
           </div>
 
-          {categoryId == 1 && (
+          {categoryId === 1 && (
             <div className="relative mb-4">
               <label
                 htmlFor="subcategoryId"
@@ -704,7 +704,7 @@ function UploadListings() {
             </div>
           )}
 
-          {categoryId == 3 && (
+          {categoryId === 3 && (
             <div className="relative mb-4">
               <div className="items-stretch py-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
@@ -805,11 +805,11 @@ function UploadListings() {
             </div>
           </div>
 
-          {(categoryId == 12 || categoryId == 5) && (
+          {(categoryId === 12 || categoryId === 5) && (
             <div className="relative mb-4 grid grid-cols-2 gap-4">
               <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
                 <label
-                  for="place"
+                  htmlFor="place"
                   className="block text-sm font-medium text-gray-600"
                 >
                   {t("originalPrice")}
@@ -828,7 +828,7 @@ function UploadListings() {
               </div>
               <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
                 <label
-                  for="place"
+                  htmlFor="place"
                   className="block text-sm font-medium text-gray-600"
                 >
                   {t("discountedPrice")}
@@ -961,6 +961,7 @@ function UploadListings() {
                   <p>
                     <a
                       target="_blank"
+                      rel="noreferrer" //  Attribute for security reasons. This attribute prevents the new page from accessing the window.opener property, which could potentially be exploited for phishing attacks.
                       href={
                         localImageOrPdf ? URL.createObjectURL(pdf) : pdf.link
                       }
