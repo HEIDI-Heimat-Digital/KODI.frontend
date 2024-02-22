@@ -190,7 +190,7 @@ const GroupMembers = () => {
                         className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap cursor-pointer"
                       >
                         <img
-                          className="w-10 h-10 rounded-full hidden sm:table-cell"
+                          className="w-10 h-10 object-cover rounded-full hidden sm:table-cell"
                           src={
                             member.image
                               ? process.env.REACT_APP_BUCKET_HOST + member.image
@@ -295,7 +295,7 @@ const GroupMembers = () => {
           <div className="bottom-5 right-5 mt-5 px-1 py-2 text-xs font-medium text-center float-left cursor-pointer">
             <button
               type="button"
-              className="inline-block rounded-xl bg-black px-3 pb-2 pt-2 text-xs font-bold uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-neutral-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]"
+              className="inline-block rounded-xl bg-black px-3 pb-2 pt-2 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-neutral-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]"
               style={{ fontFamily: "Poppins, sans-serif" }}
               onClick={() => navigateTo("/MyGroups")}
             >
