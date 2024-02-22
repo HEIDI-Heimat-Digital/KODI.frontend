@@ -265,15 +265,9 @@ function AddNewProducts() {
       setNewListing(false);
       getVillages(cityId).then((response) => setVillages(response.data.data));
       getListingsById(cityId, listingId).then((listingsResponse) => {
-        let listingData = listingsResponse.data.data;
-        // if (listingData.startDate)
-        // 	listingData.startDate = listingData.startDate.slice(0, 10);
-        // if (listingData.endDate)
-        // 	listingData.endDate = listingData.endDate.slice(0, 10);
+        const listingData = listingsResponse.data.data;
         listingData.cityId = cityId;
         setInput(listingData);
-        setStartDate(listingData.startDate);
-        setEndDate(listingData.endDate);
         setDescription(listingData.description);
         setCategoryId(listingData.categoryId);
         setSubcategoryId(listingData.subcategoryId);
@@ -301,14 +295,14 @@ function AddNewProducts() {
     }
   }
 
-  useEffect(() => {
-    let valid = true;
-    for (let property in error) {
-      if (error[property]) {
-        valid = false;
-      }
-    }
-  }, [error]);
+  //   useEffect(() => {
+  //     let valid = true;
+  //     for (const property in error) {
+  //       if (error[property]) {
+  //         valid = false;
+  //       }
+  //     }
+  //   }, [error]);
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
