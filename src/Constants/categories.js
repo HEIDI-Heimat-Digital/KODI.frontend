@@ -18,9 +18,9 @@ if (process.env.REACT_APP_REGION_NAME === "WALDI") {
     6: "offerSearch", // Ich biete / suche
     10: "companyPortaits", // Firmenportraits
     13: "eatOrDrink", // Essen / Trinken
-    14: "rathaus",
-    15: "newsletter",
-    16: "officialnotification",
+    14: "rathaus", // Rathaus
+    15: "newsletter", // Newsletter
+    16: "officialnotification", // offizielle Benachrichtigung
   };
   module.exports = { categoryByName, categoryById };
 } else {
@@ -53,9 +53,9 @@ if (process.env.REACT_APP_REGION_NAME === "WALDI") {
     11: "carpoolingPublicTransport", // Mitfahrbank / ÖPNV
     12: "offers", // Angebote
     13: "eatOrDrink", // Essen / Trinken
-    14: "rathaus",
-    15: "newsletter",
-    16: "officialnotification",
+    14: "rathaus", // Rathaus
+    15: "newsletter", // Newsletter
+    16: "officialnotification", // offizielle Benachrichtigung
     17: "freetimeAndTourisms", // Freizeit und Tourismus
   };
   module.exports = { categoryByName, categoryById };
