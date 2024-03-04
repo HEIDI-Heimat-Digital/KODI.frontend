@@ -587,7 +587,6 @@
     "forumReq": "Forumsanfragen",
     "viewPosts": "Beitragsseite",
     "send": "Schicken",
-
     "createAppoinment": "Create Appoinment",
     "uploadListings": "Upload listing",
     "serviceName": "Service Name",
@@ -617,6 +616,7 @@
     "FlashNews": "Eilmeldungen",
     "Politics": "Politik",
     "Economy": "Wirtschaft",
+    "economy": "Wirtschaft",
     "Sport": "Sport",
     "Local": "Lokales",
     "Club News": "Vereinsnews",
