@@ -6,14 +6,65 @@ import { useTranslation } from "react-i18next";
 import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
 import { deleteListing } from "../../Services/listingsApi";
-import QRCODE from "../../assets/QRCODE.png";
 
 const AllProducts = () => {
   const { t } = useTranslation();
   const [forums, setForums] = useState([]);
   const [pageNo, setPageNo] = useState(1);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [text, setText] = useState("");
   const pageSize = 9;
+
+  const [input, setInput] = useState({
+    sloatNumber: "",
+  });
+
+  const [, setError] = useState({
+    sloatNumber: "",
+  });
+
+  // const handleReportPost = () => {
+  //   const data = {
+  //     Reason: text,
+  //     accept: false,
+  //   };
+  //   sendForumMemberReportStatus(data);
+  // };
+
+  const onInputChange = (e, productId) => {
+    const {  value } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [productId]: value,
+    }));
+    validateInput(e);
+  };
+
+  const getErrorMessage = (name, value) => {
+    switch (name) {
+
+      case "sloatNumber":
+        if (!value) {
+          return t("pleaseEnterShelftNumber");
+        } else if (value === 0) {
+          return t("shelf0CantBeEntered");
+        } else {
+          return "";
+        }
+
+      default:
+        return "";
+    }
+  };
+
+  const validateInput = (e) => {
+    const { name, value } = e.target;
+    const errorMessage = getErrorMessage(name, value);
+    setError((prevState) => {
+      return { ...prevState, [name]: errorMessage };
+    });
+  };
 
   const fetchForums = useCallback(() => {
     getUserForums({
@@ -37,16 +88,6 @@ const AllProducts = () => {
     if (path) {
       navigate(path);
     }
-  };
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleImageClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
   };
     
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState({
@@ -80,6 +121,19 @@ const AllProducts = () => {
       onCancel: () => setShowDeleteConfirmationModal({ visible: false }),
     });
   }
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setText("");
+  };
 
   return (
     <section className="bg-slate-600 body-font relative h-screen">
@@ -129,18 +183,7 @@ const AllProducts = () => {
                       width: "16.66%",
                     }}
                   >
-                    {t("edit")}
-                  </th>
-
-                  <th
-                    scope="col"
-                    className="px-6 sm:px-6 py-3 text-center "
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
-                    }}
-                  >
-                    {t("delete")}
+                    {t("action")}
                   </th>
                   
                   <th
@@ -151,7 +194,29 @@ const AllProducts = () => {
                       width: "16.66%",
                     }}
                   >
-                    {t("Slots")}
+                    {t("shelfNo")}
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 sm:px-6 py-3 text-center "
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      width: "16.66%",
+                    }}
+                  >
+                    {t("accept")}
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 sm:px-6 py-3 text-center "
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      width: "16.66%",
+                    }}
+                  >
+                    {t("reject")}
                   </th>
                 </tr>
               </thead>
@@ -219,20 +284,14 @@ const AllProducts = () => {
                       <td
                         className="px-6 py-4 text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
-                        onClick={() => navigateTo(`/AddNewProducts`)}
                       >
                         <a
-                          className="font-medium text-blue-600 hover:underline cursor-pointer"
+                          className="font-medium text-blue-600 hover:underline cursor-pointer pr-2"
                           style={{ fontFamily: "Poppins, sans-serif" }}
+                          onClick={() => navigateTo(`/AddNewProducts`)}
                         >
                           {t("edit")}
                         </a>
-                      </td>
-                      
-                      <td
-                        className="px-6 py-4 text-center"
-                        style={{ fontFamily: "Poppins, sans-serif" }}
-                      >
                         <a
                           className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
                           onClick={() => deleteListingOnClick(products)}
@@ -310,63 +369,67 @@ const AllProducts = () => {
                         )}
                       </td>
 
-                      <td
-                        className="px-6 py-4 text-center"
-                        style={{ fontFamily: "Poppins, sans-serif" }}
-                      >
-                        <div style={{ display: "inline-block" }}>
-                          <img
-                            className="w-10 h-10 object-cover rounded-full"
-                            src={
-                              products.image
-                                ? process.env.REACT_APP_BUCKET_HOST +
-                                  products.image
-                                : QRCODE
-                            }
-                            onClick={handleImageClick}
-                            alt="avatar"
-                          />
-                        </div>
-                        {showModal && (
-                          <div className="fixed z-50 inset-0 overflow-y-auto">
-                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                              <div
-                                className="fixed inset-0 transition-opacity"
-                                aria-hidden="true"
-                              >
-                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-                              </div>
-                              <span
-                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                aria-hidden="true"
-                              >
-                                &#8203;
-                              </span>
-                              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                <img
-                                  className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-white"
-                                  src={
-                                    products.image
-                                      ? process.env.REACT_APP_BUCKET_HOST +
-                                        products.image
-                                      : QRCODE
-                                  }
-                                  alt="avatar"
-                                />
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6 text-center">
-                                  <button
-                                    onClick={handleCloseModal}
-                                    type="button"
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                  >
-                                    {t("cancel")}
-                                  </button>
-                                </div>
+                      <td className="px-6 py-4 text-center" style={{ fontFamily: "Poppins, sans-serif" }}>
+                        <input
+                            type="text"
+                            id="sloatNumber"
+                            name="sloatNumber"
+                            value={input[products.id] || ""}
+                            onChange={(e) => onInputChange(e, products.id)}
+                            onBlur={validateInput}
+                            required
+                            className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
+                            placeholder={t("number")}
+                        />
+                        </td>
+
+                      <td className="px-6 py-4 text-center">
+                        <a
+                          className={`font-medium text-green-600 px-2 hover:underline cursor-pointer`}
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
+                          {t("accept")}
+                        </a>
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        <a
+                          className={`font-medium text-red-500 px-2 hover:underline cursor-pointer`}
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                          onClick={openPopup}
+                        >
+                          {t("reject")}
+                        </a>
+                      </td>
+                        
+                        {isPopupOpen && (
+                          <div className="fixed w-full px-4 sm:px-6 inset-0 z-50 flex justify-center items-center bg-black bg-opacity-75">
+                            <div className="bg-white p-6 rounded-lg shadow relative w-full max-w-md max-h-full">
+                              <h2 className="text-xl flex justify-center items-center font-medium leading-normal text-neutral-800">
+                                {t("reason")}
+                              </h2>
+                              <textarea
+                                className="w-full p-2 border rounded-lg resize-none text-sm text-gray-600"
+                                rows="4"
+                                value={text}
+                                onChange={handleTextChange}
+                              />
+                              <div className="text-center justify-center mt-4">
+                                <button
+                                  className="mt-3 mb-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                                  onClick={closePopup}
+                                >
+                                  {t("cancel")}
+                                </button>
+                                <button
+                                  className="w-full mt-3 mb-3 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                  // onClick={handleReportPost}
+                                >
+                                  {t("send")}
+                                </button>
                               </div>
                             </div>
                           </div>
                         )}
-                      </td>
                     </tr>
                   );
                 })}

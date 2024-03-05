@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
 import { deleteListing } from "../../Services/listingsApi";
+import dummyReceiptPDF from "../../assets/dummyReceipt.png"; // Dummy Image for the time being
+import QRCODE from "../../assets/DefaultQR.png";
 
 const MyOrders = () => {
   const { t } = useTranslation();
@@ -13,6 +15,10 @@ const MyOrders = () => {
   const [pageNo, setPageNo] = useState(1);
   const [products, setProducts] = useState([]);
   const pageSize = 9;
+
+  const openDummyPDF = () => {
+    window.open(dummyReceiptPDF, '_blank');
+  }
 
   const fetchForums = useCallback(() => {
     getUserForums({
@@ -70,6 +76,16 @@ const MyOrders = () => {
     });
   }
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleImageClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section className="bg-slate-600 body-font relative h-screen">
       <SideBar />
@@ -84,7 +100,7 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3"
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "20%",
+                      width: "16.66%",
                     }}
                   >
                     {t("productName")}
@@ -94,7 +110,7 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3 text-center"
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "20%",
+                      width: "16.66%",
                     }}
                   >
                     {t("price")}
@@ -104,7 +120,7 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "20%",
+                      width: "16.66%",
                     }}
                   >
                     {t("devileryStatus")}
@@ -115,7 +131,7 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "20%",
+                      width: "16.66%",
                     }}
                   >
                     {t("action")}
@@ -126,10 +142,21 @@ const MyOrders = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "20%",
+                      width: "16.66%",
                     }}
                   >
                     {t("receipt")}
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 sm:px-6 py-3 text-center "
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      width: "16.66%",
+                    }}
+                  >
+                    {t("qrCode")}
                   </th>
                 </tr>
               </thead>
@@ -286,8 +313,67 @@ const MyOrders = () => {
                       <td
                         className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
+                        onClick={openDummyPDF}
                       >
                         {t("receipt")}
+                      </td>
+
+                      <td
+                        className="px-6 py-4 text-center"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
+                        <div style={{ display: "inline-block" }}>
+                          <img
+                            className="w-10 h-10 object-cover rounded-full"
+                            src={
+                              products.image
+                                ? process.env.REACT_APP_BUCKET_HOST +
+                                  products.image
+                                : QRCODE
+                            }
+                            onClick={handleImageClick}
+                            alt="avatar"
+                          />
+                        </div>
+                        {showModal && (
+                          <div className="fixed z-50 inset-0 overflow-y-auto">
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <div
+                                className="fixed inset-0 transition-opacity"
+                                aria-hidden="true"
+                              >
+                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                              </div>
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <img
+                                  className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-white"
+                                  src={
+                                    products.image
+                                      ? process.env.REACT_APP_BUCKET_HOST +
+                                        products.image
+                                      : QRCODE
+                                  }
+                                  alt="avatar"
+                                />
+                                <div className="bg-gray-50 px-4 py-3 sm:px-6 text-center">
+                                  <button
+                                    onClick={handleCloseModal}
+                                    type="button"
+                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                  >
+                                    {t("cancel")}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );

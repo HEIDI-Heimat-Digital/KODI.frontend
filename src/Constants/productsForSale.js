@@ -7,6 +7,7 @@ export const ProductsTest = [
             price: "100 Euro",
             itemsleft: "10",
 			statusId: 1,
+			approvalId: 1,
 	},
 	{
 		id: 2,
@@ -16,6 +17,7 @@ export const ProductsTest = [
             price: "10 Euro",
             itemsleft: "4",
 			statusId: 2,
+			approvalId: 2,
 	},
 	{
 		id: 3,
@@ -25,6 +27,7 @@ export const ProductsTest = [
             price: "150 Euro",
             itemsleft: "20",
 			statusId: 3,
+			approvalId: 1,
 	},
 	{
 		id: 4,
@@ -34,6 +37,7 @@ export const ProductsTest = [
             price: "200 Euro",
             itemsleft: "1",
 			statusId: 4,
+			approvalId: 2,
 	},
 	// Add more comments as needed
 ];
