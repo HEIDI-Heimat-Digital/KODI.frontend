@@ -323,9 +323,9 @@ function AddNewProducts() {
           return "";
         }
 
-      case "stockLeft":
+      case "sellingAllert":
         if (!parseInt(value)) {
-          return t("pleaseSelectStockLeft");
+          return t("pleaseSelectSellingAllert");
         } else {
           return "";
         }
@@ -475,6 +475,14 @@ function AddNewProducts() {
                 className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
                 placeholder="Enter the price of the product"
               />
+               <div
+              className="h-[24px] text-red-600"
+              style={{
+                visibility: error.title ? "visible" : "hidden",
+              }}
+            >
+              {error.sellingAllert}
+            </div>
             </div>
             <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
               <label
@@ -514,6 +522,14 @@ function AddNewProducts() {
               className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
               placeholder={t("pleaseEnterPhone")}
             />
+            <div
+              className="h-[24px] text-red-600"
+              style={{
+                visibility: error.title ? "visible" : "hidden",
+              }}
+            >
+              {error.sellingAllert}
+            </div>
           </div>
 
           <div className="relative mb-4">
