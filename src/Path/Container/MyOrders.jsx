@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
-import QRCODE from "../../assets/QRCODE.png";
 import { deleteListing } from "../../Services/listingsApi";
 
 const MyOrders = () => {
@@ -37,16 +36,6 @@ const MyOrders = () => {
     if (path) {
       navigate(path);
     }
-  };
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleImageClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
   };
 
   const [showConfirmationModal, setShowConfirmationModal] = useState({
@@ -118,7 +107,7 @@ const MyOrders = () => {
                       width: "20%",
                     }}
                   >
-                    {t("stockLeft")}
+                    {t("devileryStatus")}
                   </th>
 
                   <th
@@ -140,7 +129,7 @@ const MyOrders = () => {
                       width: "20%",
                     }}
                   >
-                    {t("qrCode")}
+                    {t("receipt")}
                   </th>
                 </tr>
               </thead>
@@ -196,13 +185,21 @@ const MyOrders = () => {
 
                       <td
                         className={`px-6 py-4 text-center ${
-                          products.itemsleft < 5
+                          products.statusId === 2
                             ? "text-red-500"
+                            : products.statusId === 1
+                            ? "text-green-600"
                             : "text-blue-600"
                         }`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
-                        {products.itemsleft}
+                        {products.statusId === 1
+                          ? t("delivered")
+                          : products.statusId === 2
+                          ? t("cancelled")
+                          : products.statusId === 3
+                          ? t("inTransit")
+                          : t("outOfDelivery")}
                       </td>
 
                       <td
@@ -287,61 +284,10 @@ const MyOrders = () => {
                       </td>
 
                       <td
-                        className="px-6 py-4 text-center"
+                        className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
-                        <div style={{ display: "inline-block" }}>
-                          <img
-                            className="w-10 h-10 object-cover rounded-full"
-                            src={
-                              products.image
-                                ? process.env.REACT_APP_BUCKET_HOST +
-                                  products.image
-                                : QRCODE
-                            }
-                            onClick={handleImageClick}
-                            alt="avatar"
-                          />
-                        </div>
-                        {showModal && (
-                          <div className="fixed z-50 inset-0 overflow-y-auto">
-                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                              <div
-                                className="fixed inset-0 transition-opacity"
-                                aria-hidden="true"
-                              >
-                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-                              </div>
-                              <span
-                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                aria-hidden="true"
-                              >
-                                &#8203;
-                              </span>
-                              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                <img
-                                  className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-white"
-                                  src={
-                                    products.image
-                                      ? process.env.REACT_APP_BUCKET_HOST +
-                                        products.image
-                                      : QRCODE
-                                  }
-                                  alt="avatar"
-                                />
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6 text-center">
-                                  <button
-                                    onClick={handleCloseModal}
-                                    type="button"
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                  >
-                                    {t("cancel")}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
+                        {t("receipt")}
                       </td>
                     </tr>
                   );

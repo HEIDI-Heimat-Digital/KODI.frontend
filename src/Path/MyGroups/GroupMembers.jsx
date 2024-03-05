@@ -103,6 +103,20 @@ const GroupMembers = () => {
     });
   }
 
+  function removeOrMakeAdminOnClick(member) {
+    setMemberToBeRemoved(member.userId);
+    if (member.isAdmin === 1 && isOnlyAdmin) {
+      setShowConfirmationModal({
+        visible: true,
+        member,
+        onConfirm: () => handleAdminToggle(member),
+        onCancel: () => setShowConfirmationModal({ visible: false }),
+      });
+    } else {
+      handleAdminToggle(member);
+    }
+  }
+
   const navigate = useNavigate();
   const navigateTo = (path) => {
     if (path) {
@@ -272,12 +286,12 @@ const GroupMembers = () => {
                             className={`font-medium hover:underline cursor-pointer text-center ${
                               member.isAdmin === 1
                                 ? "text-red-500"
-                                : "text-green-500"
+                                : "text-green-600"
                             }`}
                             style={{
                               fontFamily: "Poppins, sans-serif",
                             }}
-                            onClick={() => handleAdminToggle(member)}
+                            onClick={() => removeOrMakeAdminOnClick(member)}
                           >
                             {member.isAdmin === 1
                               ? t("removeAdmin")

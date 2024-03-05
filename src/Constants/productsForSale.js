@@ -6,6 +6,7 @@ export const ProductsTest = [
             qrcode: "Duke 350",
             price: "100 Euro",
             itemsleft: "10",
+			statusId: 1,
 	},
 	{
 		id: 2,
@@ -14,6 +15,7 @@ export const ProductsTest = [
             qrcode: "Duke 350",
             price: "10 Euro",
             itemsleft: "4",
+			statusId: 2,
 	},
 	{
 		id: 3,
@@ -22,6 +24,7 @@ export const ProductsTest = [
             qrcode: "Duke 350",
             price: "150 Euro",
             itemsleft: "20",
+			statusId: 3,
 	},
 	{
 		id: 4,
@@ -30,6 +33,7 @@ export const ProductsTest = [
             qrcode: "Duke 350",
             price: "200 Euro",
             itemsleft: "1",
+			statusId: 4,
 	},
 	// Add more comments as needed
 ];
