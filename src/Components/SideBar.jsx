@@ -512,7 +512,7 @@ function SideBar() {
                     className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-slate-600 text-white"
                     onClick={() => {
                       localStorage.setItem("selectedItem", t("myOrders"));
-                      navigateTo("/ProductsAdmin");
+                      navigateTo("/AllProducts");
                     }}
                   >
                     <svg
@@ -549,7 +549,7 @@ function SideBar() {
               <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
             </svg>
             <span className="text-sm ml-4 text-gray-200 font-bold">
-              {t("personalInfo")}
+              {t("account")}
             </span>
 
             <svg

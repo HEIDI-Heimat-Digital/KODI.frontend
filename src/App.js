@@ -45,6 +45,7 @@ import ReportedPosts from "./Path/MyGroups/ReportedPosts";
 import MyProducts from "./Path/Container/MyProducts";
 import MyOrders from "./Path/Container/MyOrders";
 import AddNewProducts from "./Path/Container/AddNewProducts";
+import AllProducts from "./Path/Container/AllProducts";
 
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
@@ -127,6 +128,7 @@ const App = () => {
               <Route path="/MyProducts" element={<MyProducts />} exact />
               <Route path="/MyOrders" element={<MyOrders />} exact />
               <Route path="/AddNewProducts" element={<AddNewProducts />} exact />
+              <Route path="/AllProducts" element={<AllProducts />} exact />
             </React.Fragment>)}
 
         </Routes>

@@ -617,7 +617,9 @@ function UploadListings() {
             <label
               htmlFor="title"
               className="block text-sm font-medium text-gray-600"
-            ></label>
+            >
+              {t("title")} *
+            </label>
             <input
               type="text"
               id="title"
@@ -958,7 +960,7 @@ function UploadListings() {
             </div>
           </div>
 
-          {(categoryId === 12 || categoryId === 5) && (
+          {(categoryId == 12 || categoryId == 5 || categoryId == 6) && (
             <div className="relative mb-4 grid grid-cols-2 gap-4">
               <div className="col-span-6 sm:col-span-1 mt-1 px-0 mr-2">
                 <label

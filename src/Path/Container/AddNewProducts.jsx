@@ -501,7 +501,7 @@ function AddNewProducts() {
               htmlFor="place"
               className="block text-sm font-medium text-gray-600"
             >
-              {t("stockLeft")} *
+              {t("fastSellingAllert")} *
             </label>
             <input
               type="text"
