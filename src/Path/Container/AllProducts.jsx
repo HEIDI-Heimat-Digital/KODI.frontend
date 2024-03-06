@@ -272,13 +272,13 @@ const AllProducts = () => {
 
                       <td
                         className={`px-6 py-4 text-center ${
-                          products.itemsleft < 5
+                          products.itemsLeft < 5
                             ? "text-red-500"
                             : "text-blue-600"
                         }`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
-                        {products.itemsleft}
+                        {products.itemsLeft}
                       </td>
 
                       <td
