@@ -114,7 +114,7 @@ const DialogueBox = ({ member, setRequests }) => {
   return (
     <div>
       <button
-        className="font-medium text-blue-600 px-2 hover:underline cursor-pointer text-center"
+        className="font-bold text-blue-600 px-2 hover:underline cursor-pointer text-center"
         style={{ fontFamily: "Poppins, sans-serif" }}
         onClick={handleRemoveClick}
       >

@@ -16,10 +16,15 @@ const MyProducts = () => {
   const [pageNo, setPageNo] = useState(1);
   const [products, setProducts] = useState([]);
   const pageSize = 9;
+  const totalStock = ProductsTest.reduce((total, product) => total + product.totalNumber, 0);
   const totalStockSold = ProductsTest.reduce((total, product) => total + product.stockSold, 0);
-  const incomePerProduct = parseFloat(products.price.replace(" Euro", "")) * products.stockSold
-  const totalIncomekSold = ProductsTest.reduce((total, product) => total + product.stockSold, 0);
-
+  const percentItemsSold = (totalStockSold / totalStock) * 100;
+  const totalIncome = ProductsTest.reduce((total, product) => {
+    const incomePerProduct = parseFloat(product.price.replace(" Euro", "")) * product.stockSold;
+    return total + incomePerProduct;
+}, 0);
+const totalOwedAmount = ProductsTest.reduce((total, product) => total + product.upcomingAmount, 0);
+  
   const fetchForums = useCallback(() => {
     getUserForums({
       pageNo,
@@ -98,12 +103,12 @@ const MyProducts = () => {
     <section className="bg-slate-600 body-font relative h-screen">
       <SideBar />
 
-      <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
+      <div className="container w-auto px-5 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
 
-        <SellerStatistics totalStockSold={totalStockSold} />
+          <SellerStatistics percentItemsSold={percentItemsSold} totalIncome={totalIncome} totalOwedAmount={totalOwedAmount} />
           
-            <div className="bg-white mt-10 p-0 space-y-0 overflow-x-auto">
+            <div className="bg-white mt-10 lg:mt-4 p-0 space-y-0 overflow-x-auto">
               <h2 className="text-gray-900 text-lg p-6 font-medium title-font">
               {t("productDetails")}
               </h2>
@@ -204,14 +209,14 @@ const MyProducts = () => {
                           </div>
                         </th>
                         <td
-                          className={`px-6 py-4 text-center text-blue-600`}
+                          className={`px-6 py-4 text-center font-bold text-blue-600`}
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
                           {products.stockSold}
                         </td>
                         <td
-                          className={`px-6 py-4 text-center ${
-                            products.itemsLeft < 5
+                          className={`px-6 py-4 text-center font-bold ${
+                            products.itemsLeft < products.threshold
                               ? "text-red-500"
                               : "text-blue-600"
                           }`}
@@ -220,18 +225,18 @@ const MyProducts = () => {
                           {products.itemsLeft}
                         </td>
                         <td
-                          className="px-6 py-4 text-center"
+                          className="px-6 py-4 text-center font-bold"
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
                           <a
-                            className="font-medium text-blue-600 hover:underline cursor-pointer pr-2"
+                            className="font-bold text-blue-600 hover:underline cursor-pointer pr-2"
                             style={{ fontFamily: "Poppins, sans-serif" }}
                             onClick={() => goToEditProductsPage(products)}
                           >
                             {t("edit")}
                           </a>
                           <a
-                            className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                            className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                             onClick={() => deleteListingOnClick(products)}
                             style={{ fontFamily: "Poppins, sans-serif" }}
                           >
@@ -307,7 +312,7 @@ const MyProducts = () => {
                           )}
                         </td>
 
-                        <td className="px-6 py-4 text-center" style={{ fontFamily: "Poppins, sans-serif" }}>
+                        <td className="px-6 py-4 text-center font-bold" style={{ fontFamily: "Poppins, sans-serif" }}>
                           <div className="flex items-center justify-center">
                             <div
                               className={`h-2.5 w-2.5 rounded-full ${getStatusClass(
@@ -326,7 +331,7 @@ const MyProducts = () => {
               </table>
             </div>
           
-            <div className="bg-white mt-10 p-0 space-y-0 overflow-x-auto">
+            <div className="bg-white mt-10 lg:mt-4 p-0 space-y-0 overflow-x-auto">
               <h2 className="text-gray-900 text-lg p-6 font-medium title-font">
                 {t("priceDetails")}
               </h2>
@@ -417,22 +422,22 @@ const MyProducts = () => {
                           </div>
                         </th>
                         <td
-                          className="px-6 py-4 text-center"
+                          className="px-6 py-4 text-center font-bold"
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
                           {products.price}
                         </td>
                         <td
-                          className="px-6 py-4 text-center text-blue-600"
+                          className="px-6 py-4 text-center font-bold text-green-600"
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
-                           {parseFloat(products.price.replace(" Euro", "")) * products.stockSold}
+                           €{parseFloat(products.price.replace(" Euro", "")) * products.stockSold}
                         </td>
                         <td
-                          className="px-6 py-4 text-center text-red-500"
+                          className="px-6 py-4 text-center font-bold text-red-500"
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
-                          {products.upcomingAmount}
+                          €{products.upcomingAmount}
                         </td>
                       </tr>
                       );

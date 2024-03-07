@@ -90,9 +90,9 @@ const MyOrders = () => {
   return (
     <section className="bg-slate-600 body-font relative h-screen">
       <SideBar />
-      <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
+      <div className="container w-auto px-5 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
-          <div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
+          <div className="bg-white mt-4 p-0 space-y-10 overflow-x-auto">
             <table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500 p-6 space-y-10 rounded-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -191,7 +191,7 @@ const MyOrders = () => {
                         />
                         <div className="pl-0 sm:pl-3 overflow-hidden max-w-[20rem] sm:max-w-[10rem]">
                           <div
-                            className="font-medium text-gray-500 cursor-pointer text-center truncate"
+                            className="font-bold text-gray-500 cursor-pointer text-center truncate"
                             style={{ fontFamily: "Poppins, sans-serif" }}
                             onClick={() =>
                               navigateTo(
@@ -205,37 +205,29 @@ const MyOrders = () => {
                       </th>
 
                       <td
-                        className="px-6 py-4 text-center"
+                        className="px-6 py-4 text-center font-bold"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products.price}
                       </td>
 
                       <td
-                        className={`px-6 py-4 text-center ${
-                          products.statusId === 2
+                        className={`px-6 py-4 text-center font-bold ${
+                          products.itemsLeft < products.threshold
                             ? "text-red-500"
-                            : products.statusId === 1
-                            ? "text-green-600"
                             : "text-blue-600"
                         }`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
-                        {products.statusId === 1
-                          ? t("delivered")
-                          : products.statusId === 2
-                          ? t("cancelled")
-                          : products.statusId === 3
-                          ? t("inTransit")
-                          : t("outOfDelivery")}
+                        {products.itemsLeft}
                       </td>
 
                       <td
-                        className="px-6 py-4 text-center"
+                        className="px-6 py-4 font-bold text-center font-bold"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         <a
-                          className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                          className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                           onClick={() => deleteListingOnClick(products)}
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
@@ -312,7 +304,7 @@ const MyOrders = () => {
                       </td>
 
                       <td
-                        className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                        className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                         onClick={openDummyPDF}
                       >
@@ -320,7 +312,7 @@ const MyOrders = () => {
                       </td>
 
                       {/* <td
-                        className="px-6 py-4 text-center"
+                        className="px-6 py-4 text-center font-bold"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         <div style={{ display: "inline-block" }}>

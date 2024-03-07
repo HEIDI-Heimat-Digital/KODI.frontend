@@ -262,7 +262,7 @@ const Dashboard = () => {
 
       <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
-          <div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
+          <div className="bg-white mt-10 lg:mt-4 p-0 space-y-10 overflow-x-auto">
             <table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500  p-6 space-y-10 rounded-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -346,7 +346,7 @@ const Dashboard = () => {
                         />
                         <div className="pl-0 sm:pl-3 overflow-hidden max-w-[20rem] sm:max-w-[10rem]">
                           <div
-                            className="font-normal text-gray-500 truncate"
+                            className="font-bold text-gray-500 truncate"
                             style={{ fontFamily: "Poppins, sans-serif" }}
                           >
                             {listing.title}
@@ -355,27 +355,27 @@ const Dashboard = () => {
                       </th>
 
                       <td
-                        className="px-6 py-4 hidden lg:table-cell text-center"
+                        className="px-6 py-4 hidden font-bold lg:table-cell text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {t(categories[listing.categoryId])}
                       </td>
                       <td
-                        className="px-6 py-4 hidden lg:table-cell text-center"
+                        className="px-6 py-4 hidden font-bold lg:table-cell text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {new Date(listing.createdAt).toLocaleString("de")}
                       </td>
-                      <td className="px-6 py-4 text-center">
+                      <td className="px-6 py-4 text-center font-bold">
                         <a
-                          className="font-medium text-blue-600 hover:underline cursor-pointer pr-2"
+                          className="font-bold text-blue-600 hover:underline cursor-pointer pr-2"
                           onClick={() => goToEditListingsPage(listing)}
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
                           {t("edit")}
                         </a>
                         <a
-                          className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                          className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                           onClick={() => deleteListingOnClick(listing)}
                           style={{ fontFamily: "Poppins, sans-serif" }}
                         >
@@ -451,9 +451,9 @@ const Dashboard = () => {
                         )}
                       </td>
                       {viewAllListings && (
-                        <td className="px-6 py-4 text-center">
+                        <td className="px-6 py-4 text-center font-bold">
                           <a
-                            className="font-medium text-blue-600 hover:underline cursor-pointer"
+                            className="font-bold text-blue-600 hover:underline cursor-pointer"
                             style={{ fontFamily: "Poppins, sans-serif" }}
                             href={"/ViewProfile/" + listing.username}
                           >
@@ -490,7 +490,8 @@ const Dashboard = () => {
                               })}
                             </select>
                           ) : (
-                            <h1 style={{ fontFamily: "Poppins, sans-serif" }}>
+                              <h1 className="font-bold"
+                                style={{ fontFamily: "Poppins, sans-serif" }}>
                               {t(status[listing.statusId].toLowerCase())}
                             </h1>
                           )}

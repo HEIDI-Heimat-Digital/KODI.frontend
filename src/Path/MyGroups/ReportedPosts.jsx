@@ -82,7 +82,7 @@ const ReportedPosts = () => {
 			<ForumNavbar cityId={cityId} forumId={forumId} />
 			<div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
 				<div className="h-full">
-					<div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
+					<div className="bg-white mt-10 lg:mt-4 p-0 space-y-10 overflow-x-auto">
 						<table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500 dark:text-gray-400 p-6 space-y-10 rounded-lg">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-50 dark:text-gray-700">
 								<tr>
@@ -166,7 +166,7 @@ const ReportedPosts = () => {
 													/>
 													<div className="pl-0 sm:pl-3 overflow-hidden max-w-[20rem] sm:max-w-[10rem]">
 														<div
-															className="font-normal text-gray-500 truncate"
+															className="font-bold text-gray-500 truncate"
 															style={{ fontFamily: "Poppins, sans-serif" }}
 															onClick={() =>
 																navigateTo(
@@ -180,20 +180,20 @@ const ReportedPosts = () => {
 												</th>
 
 												<td
-													className="px-3 py-4 text-center"
+													className="px-3 py-4 font-bold text-center"
 													style={{ fontFamily: "Poppins, sans-serif" }}
 												>
 													{report.numberOfReports}
 												</td>
 
 												<td
-													className="px-6 py-4 text-center"
+													className="px-6 py-4 font-bold text-center font-bold"
 													style={{ fontFamily: "Poppins, sans-serif" }}
 												>
 													{report.isHidden ? t("yes") : t("no")}
 												</td>
 
-												<td className="px-6 py-4 text-center">
+												<td className="px-6 font-bold py-4 text-center font-bold">
 													<a
 														className="font-medium text-blue-600 px-2 dark:text-blue-500 hover:underline cursor-pointer text-center"
 														style={{ fontFamily: "Poppins, sans-serif" }}
@@ -266,7 +266,7 @@ const ReportedPosts = () => {
 														</div>
 													)}
 												</td>
-												<td className="px-6 py-4 text-center">
+												<td className="px-6 py-4 font-bold text-center font-bold">
 													<a
 														className="font-medium text-blue-600 px-2 dark:text-blue-500 hover:underline cursor-pointer text-center"
 														style={{ fontFamily: "Poppins, sans-serif" }}

@@ -2,93 +2,39 @@ import React from 'react';
 import { useTranslation } from "react-i18next";
 import PropTypes from 'prop-types';
 
-const SellerStatistics = ({ totalStockSold }) => {
+const SellerStatistics = ({ percentItemsSold , totalIncome , totalOwedAmount}) => {
   const { t } = useTranslation();
   return (
-    <section className="text-gray-600 body-font">
-      <div className="px-0 py-0 mt-10 mx-auto">
-        <div className="flex flex-wrap -m-4">
-          <div className="p-4 lg:w-1/3">
-            <div className="h-full bg-white bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
-              <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{t("youSold")}</h2>
-              <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">
-                  {totalStockSold}{" "}
-                  {t("items")}
-              </h1>
-              <p className="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
-              <a className="text-blue-500 inline-flex items-center">Learn More
-                <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
-                <span className="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>1.2K
-                </span>
-                <span className="text-gray-400 inline-flex items-center leading-none text-sm">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                  </svg>6
-                </span>
-              </div>
+    <section className="text-gray-600 body-font bg-slate-600">
+      <div className="bg-slate-600 mt-4 p-0 space-y-0 overflow-x-auto">
+        <div className="w-full text-sm text-left lg:mt-[0rem] mt-[0rem] text-gray-500 p-0 space-y-10 rounded-lg">
+          <dl className="bg-white rounded-lg shadow-lg sm:grid sm:grid-cols-3">
+            <div className="flex flex-col p-6 text-center border-b border-gray-100 sm:border-0 sm:border-r">
+              <dt className="order-2 mt-2 text-lg font-medium leading-6 text-gray-500" id="item-1">
+                {t("items")}{" "}{t("youSold")}
+              </dt>
+              <dd className="order-1 text-5xl font-extrabold leading-none text-purple-700 truncate" aria-describedby="item-1">
+                {percentItemsSold}%
+              </dd>
             </div>
-          </div>
-          <div className="p-4 lg:w-1/3">
-            <div className="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
-              <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{t("youMade")}</h2>
-              <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{t("euros")}</h1>
-              <p className="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
-              <a className="text-blue-500 inline-flex items-center">Learn More
-                <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
-                <span className="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>1.2K
-                </span>
-                <span className="text-gray-400 inline-flex items-center leading-none text-sm">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                  </svg>6
-                </span>
-              </div>
+            <div
+                className="flex flex-col p-6 text-center border-t border-b border-gray-100 sm:border-0 sm:border-l sm:border-r">
+              <dt className="order-2 mt-2 text-lg font-medium leading-6 text-gray-500">
+                  {t("youMade")}
+              </dt>
+              <dd className="order-1 text-5xl font-extrabold leading-none text-blue-700 truncate">
+                €{totalIncome}
+              </dd>
             </div>
-          </div>
-          <div className="p-4 lg:w-1/3">
-            <div className="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
-              <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{t("youOwe")}</h2>
-              <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{t("euros")}</h1>
-              <p className="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
-              <a className="text-blue-500 inline-flex items-center">Learn More
-                <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
-                <span className="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>1.2K
-                </span>
-                <span className="text-gray-400 inline-flex items-center leading-none text-sm">
-                  <svg className="w-4 h-4 mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                  </svg>6
-                </span>
-              </div>
+            <div className="flex flex-col p-6 text-center border-t border-gray-100 sm:border-0 sm:border-l">
+              <dt className="order-2 mt-2 text-lg font-medium leading-6 text-gray-500">
+                  {t("youOwe")}
+              </dt>
+              <dd className="order-1 text-5xl font-extrabold leading-none text-red-700 truncate">
+                €{totalOwedAmount}
+              </dd>
             </div>
-          </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -96,7 +42,9 @@ const SellerStatistics = ({ totalStockSold }) => {
 }
 
 SellerStatistics.propTypes = {
-  totalStockSold: PropTypes.number.isRequired,
+  percentItemsSold: PropTypes.number.isRequired,
+  totalIncome: PropTypes.number.isRequired,
+  totalOwedAmount: PropTypes.number.isRequired,
 };
 
 export default SellerStatistics;

@@ -86,9 +86,9 @@ const MyGroups = () => {
   return (
     <section className="bg-slate-600 body-font relative h-screen">
       <SideBar />
-      <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
+      <div className="container w-auto px-5 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
-          <div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
+          <div className="bg-white mt-4 p-0 space-y-10 overflow-x-auto">
             <table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500 p-6 space-y-10 rounded-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -184,7 +184,7 @@ const MyGroups = () => {
                         />
                         <div className="pl-0 sm:pl-3 overflow-hidden max-w-[20rem] sm:max-w-[10rem]">
                           <div
-                            className="font-medium text-gray-500 cursor-pointer text-center truncate"
+                            className="font-bold text-gray-500 cursor-pointer text-center truncate"
                             style={{ fontFamily: "Poppins, sans-serif" }}
                             onClick={() =>
                               navigateTo(
@@ -198,7 +198,7 @@ const MyGroups = () => {
                       </th>
 
                       <td
-                        className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                        className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                         onClick={() =>
                           navigateTo(
@@ -210,14 +210,14 @@ const MyGroups = () => {
                       </td>
 
                       <td
-                        className="px-6 py-4  text-center"
+                        className="px-6 py-4 font-bold text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {new Date(forum.JoinedAt).toLocaleString("de")}
                       </td>
 
                       <td
-                        className="px-6 py-4  text-center"
+                        className="px-6 py-4 font-bold text-center"
                         style={{
                           fontFamily: "Poppins, sans-serif",
                           color: forum.isAdmin === 1 ? "green" : "red",
@@ -226,7 +226,7 @@ const MyGroups = () => {
                         {forum.isAdmin === 1 ? t("admin") : t("member")}
                       </td>
                       <td
-                        className="px-6 py-4  text-center"
+                        className="px-6 py-4 font-bold text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {forum.isPrivate === 1
@@ -237,14 +237,14 @@ const MyGroups = () => {
                         {forum.isAdmin ? (
                           <div>
                             <a
-                              className="font-medium text-blue-600 hover:underline cursor-pointer pr-2"
+                              className="font-bold text-blue-600 hover:underline cursor-pointer pr-2"
                               onClick={() => goToEditForums(forum)}
                               style={{ fontFamily: "Poppins, sans-serif" }}
                             >
                               {t("edit")}
                             </a>
                             <a
-                              className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                              className="font-bold text-blue-600 hover:underline cursor-pointer text-center"
                               onClick={() => deleteForumOnClick(forum)}
                               style={{ fontFamily: "Poppins, sans-serif" }}
                             >

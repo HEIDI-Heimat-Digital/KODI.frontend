@@ -130,7 +130,7 @@ const GroupMembers = () => {
       {isAdmin && <ForumNavbar cityId={cityId} forumId={forumId} />}
       <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
-          <div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
+          <div className="bg-white mt-10 lg:mt-4 p-0 space-y-10 overflow-x-auto">
             <table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500 p-6 space-y-10 rounded-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -214,7 +214,7 @@ const GroupMembers = () => {
                         />
                         <div className="pl-0 sm:pl-3 overflow-hidden max-w">
                           <div
-                            className="font-normal text-gray-500 truncate"
+                            className="font-bold text-gray-500 truncate"
                             onClick={() =>
                               navigateTo(`/ViewProfile/${member.username}`)
                             }
@@ -227,14 +227,14 @@ const GroupMembers = () => {
                       </th>
 
                       <td
-                        className="px-6 py-4 text-center"
+                        className="px-6 py-4 text-center font-bold"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {new Date(member.joinedAt).toLocaleString("de")}
                       </td>
 
                       <td
-                        className="px-6 py-4 text-center"
+                        className="px-6 py-4 text-center font-bold"
                         style={{
                           fontFamily: "Poppins, sans-serif",
                           color: member.isAdmin === 1 ? "green" : "red",
@@ -244,9 +244,9 @@ const GroupMembers = () => {
                       </td>
 
                       {isAdmin ? (
-                        <td className="px-6 py-4 text-center">
+                        <td className="px-6 py-4 text-center font-bold">
                           <a
-                            className="font-medium text-blue-600 hover:underline cursor-pointer text-center pr-0"
+                            className="font-bold text-blue-600 hover:underline cursor-pointer text-center pr-0"
                             onClick={() => removeMemberOnClick(member)}
                             style={{ fontFamily: "Poppins, sans-serif" }}
                           >
@@ -256,9 +256,9 @@ const GroupMembers = () => {
                           </a>
                         </td>
                       ) : (
-                        <td className="px-6 py-4 text-center">
+                        <td className="px-6 py-4 text-center font-bold">
                           <a
-                            className={`font-medium text-blue-600 ${
+                            className={`font-bold text-blue-600 ${
                               member.userId === currentUserId
                                 ? "hover:underline"
                                 : ""
@@ -281,9 +281,9 @@ const GroupMembers = () => {
                       )}
 
                       {isAdmin && (
-                        <td className="px-6 py-4 text-center">
+                        <td className="px-6 py-4 text-center font-bold">
                           <button
-                            className={`font-medium hover:underline cursor-pointer text-center ${
+                            className={`font-bold hover:underline cursor-pointer text-center ${
                               member.isAdmin === 1
                                 ? "text-red-500"
                                 : "text-green-600"

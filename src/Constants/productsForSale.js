@@ -10,6 +10,7 @@ export const ProductsTest = [
 			approvalId: 1,
 			stockSold: 20,
 			totalNumber: 50,
+			threshold: 10,
 			upcomingAmount: 3000,
 			userName: "Sonu"
 	},
@@ -24,6 +25,7 @@ export const ProductsTest = [
 			approvalId: 3,
 			stockSold: 0,
 			totalNumber: 50,
+			threshold: 10,
 			upcomingAmount: 350,
 			userName: "Denio"
 	},
@@ -38,6 +40,7 @@ export const ProductsTest = [
 			approvalId: 1,
 			stockSold: 25,
 			totalNumber: 50,
+			threshold: 10,
 			upcomingAmount: 3750,
 			userName: "Akshay"
 	},
@@ -52,6 +55,7 @@ export const ProductsTest = [
 			approvalId: 2,
 			stockSold: 50,
 			totalNumber: 50,
+			threshold: 10,
 			upcomingAmount: 0,
 			userName: "Haji Moiz Ladakkuttaa"
 	},
