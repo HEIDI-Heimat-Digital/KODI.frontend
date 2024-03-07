@@ -16,6 +16,9 @@ const MyProducts = () => {
   const [pageNo, setPageNo] = useState(1);
   const [products, setProducts] = useState([]);
   const pageSize = 9;
+  const totalStockSold = ProductsTest.reduce((total, product) => total + product.stockSold, 0);
+  const incomePerProduct = parseFloat(products.price.replace(" Euro", "")) * products.stockSold
+  const totalIncomekSold = ProductsTest.reduce((total, product) => total + product.stockSold, 0);
 
   const fetchForums = useCallback(() => {
     getUserForums({
@@ -98,7 +101,7 @@ const MyProducts = () => {
       <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
 
-          <SellerStatistics />
+        <SellerStatistics totalStockSold={totalStockSold} />
           
             <div className="bg-white mt-10 p-0 space-y-0 overflow-x-auto">
               <h2 className="text-gray-900 text-lg p-6 font-medium title-font">

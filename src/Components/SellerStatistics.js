@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
+import PropTypes from 'prop-types';
 
-const SellerStatistics = () => {
+const SellerStatistics = ({ totalStockSold }) => {
   const { t } = useTranslation();
   return (
     <section className="text-gray-600 body-font">
@@ -10,7 +11,10 @@ const SellerStatistics = () => {
           <div className="p-4 lg:w-1/3">
             <div className="h-full bg-white bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
               <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{t("youSold")}</h2>
-              <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{t("items")}</h1>
+              <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">
+                  {totalStockSold}{" "}
+                  {t("items")}
+              </h1>
               <p className="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
               <a className="text-blue-500 inline-flex items-center">Learn More
                 <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -90,5 +94,9 @@ const SellerStatistics = () => {
     </section>
   );
 }
+
+SellerStatistics.propTypes = {
+  totalStockSold: PropTypes.number.isRequired,
+};
 
 export default SellerStatistics;
