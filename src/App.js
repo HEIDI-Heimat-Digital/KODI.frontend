@@ -128,6 +128,7 @@ const App = () => {
               <Route path="/MyProducts" element={<MyProducts />} exact />
               <Route path="/MyOrders" element={<MyOrders />} exact />
               <Route path="/AddNewProducts" element={<AddNewProducts />} exact />
+              <Route path="/EditProducts" element={<AddNewProducts />} exact />
               <Route path="/AllProducts" element={<AllProducts />} exact />
             </React.Fragment>)}
 

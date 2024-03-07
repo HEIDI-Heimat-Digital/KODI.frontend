@@ -7,9 +7,10 @@ import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
 import { deleteListing } from "../../Services/listingsApi";
 import dummyReceiptPDF from "../../assets/dummyReceipt.png"; // Dummy Image for the time being
-import QRCODE from "../../assets/DefaultQR.png";
+// import QRCODE from "../../assets/DefaultQR.png";
 
 const MyOrders = () => {
+  window.scrollTo(0, 0);
   const { t } = useTranslation();
   const [forums, setForums] = useState([]);
   const [pageNo, setPageNo] = useState(1);
@@ -76,15 +77,15 @@ const MyOrders = () => {
     });
   }
 
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
-  const handleImageClick = () => {
-    setShowModal(true);
-  };
+  // const handleImageClick = () => {
+  //   setShowModal(true);
+  // };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  // };
 
   return (
     <section className="bg-slate-600 body-font relative h-screen">
@@ -148,7 +149,7 @@ const MyOrders = () => {
                     {t("receipt")}
                   </th>
 
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
@@ -157,7 +158,7 @@ const MyOrders = () => {
                     }}
                   >
                     {t("qrCode")}
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
 
@@ -318,7 +319,7 @@ const MyOrders = () => {
                         {t("receipt")}
                       </td>
 
-                      <td
+                      {/* <td
                         className="px-6 py-4 text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
@@ -374,7 +375,7 @@ const MyOrders = () => {
                             </div>
                           </div>
                         )}
-                      </td>
+                      </td> */}
                     </tr>
                   );
                 })}

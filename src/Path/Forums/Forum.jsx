@@ -290,8 +290,7 @@ const Forum = () => {
 																	</h3>
 																	<div className="mt-2">
 																		<p className="text-sm text-gray-500">
-																			Do you really want to delete this group?
-																			This action cannot be reverted.
+																		{t("reallyWantToDelete")}
 																		</p>
 																	</div>
 																</div>

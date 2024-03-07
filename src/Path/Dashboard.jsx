@@ -279,21 +279,24 @@ const Dashboard = () => {
                   <th
                     scope="col"
                     className="px-6 sm:px-3 py-3 hidden lg:table-cell text-center"
-                    style={{ fontFamily: "Poppins, sans-serif" }}
+                    style={{ fontFamily: "Poppins, sans-serif",
+                    width: "20%", }}
                   >
                     {t("category")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 hidden lg:table-cell text-center"
-                    style={{ fontFamily: "Poppins, sans-serif" }}
+                    style={{ fontFamily: "Poppins, sans-serif",
+                    width: "20%", }}
                   >
                     {t("date_of_creation")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-center"
-                    style={{ fontFamily: "Poppins, sans-serif" }}
+                    style={{ fontFamily: "Poppins, sans-serif",
+                    width: "20%", }}
                   >
                     {t("action")}
                   </th>
@@ -301,7 +304,8 @@ const Dashboard = () => {
                     <th
                       scope="col"
                       className="px-6 py-3 text-center"
-                      style={{ fontFamily: "Poppins, sans-serif" }}
+                      style={{ fontFamily: "Poppins, sans-serif",
+                      width: "20%", }}
                     >
                       {t("username")}
                     </th>
@@ -309,7 +313,8 @@ const Dashboard = () => {
                   <th
                     scope="col"
                     className="px-6 py-3 text-center"
-                    style={{ fontFamily: "Poppins, sans-serif" }}
+                    style={{ fontFamily: "Poppins, sans-serif",
+                    width: "20%", }}
                   >
                     {t("status")}
                   </th>

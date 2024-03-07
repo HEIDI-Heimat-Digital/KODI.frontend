@@ -5,9 +5,13 @@ export const ProductsTest = [
             productName: "Duke 350",
             qrcode: "Duke 350",
             price: "100 Euro",
-            itemsLeft: "10",
+            itemsLeft: 30,
 			statusId: 1,
 			approvalId: 1,
+			stockSold: 20,
+			totalNumber: 50,
+			upcomingAmount: 3000,
+			userName: "Sonu"
 	},
 	{
 		id: 2,
@@ -15,9 +19,13 @@ export const ProductsTest = [
             productName: "Kaavalam Jettikal",
             qrcode: "Duke 350",
             price: "10 Euro",
-            itemsLeft: "4",
+            itemsLeft: 50,
 			statusId: 2,
 			approvalId: 3,
+			stockSold: 0,
+			totalNumber: 50,
+			upcomingAmount: 350,
+			userName: "Denio"
 	},
 	{
 		id: 3,
@@ -25,9 +33,13 @@ export const ProductsTest = [
             productName: "Asameese konandras thailam",
             qrcode: "Duke 350",
             price: "150 Euro",
-            itemsLeft: "20",
+            itemsLeft: 25,
 			statusId: 3,
 			approvalId: 1,
+			stockSold: 25,
+			totalNumber: 50,
+			upcomingAmount: 3750,
+			userName: "Akshay"
 	},
 	{
 		id: 4,
@@ -35,9 +47,27 @@ export const ProductsTest = [
             productName: "Sonu",
             qrcode: "Duke 350",
             price: "200 Euro",
-            itemsLeft: "1",
+            itemsLeft: 0,
 			statusId: 4,
 			approvalId: 2,
+			stockSold: 50,
+			totalNumber: 50,
+			upcomingAmount: 0,
+			userName: "Haji Moiz Ladakkuttaa"
+	},
+	{
+		id: 5,
+		avatar: "https://flowbite.com/docs/images/people/profile-picture-2.jpg",
+            productName: "Umakanth Coffee",
+            qrcode: "Duke 350",
+            price: "20 Euro",
+            itemsLeft: 10,
+			statusId: 1,
+			approvalId: 2,
+			stockSold: 40,
+			totalNumber: 50,
+			upcomingAmount: 200,
+			userName: "Haji Moiz Ladakkuttaa"
 	},
 	// Add more comments as needed
 ];

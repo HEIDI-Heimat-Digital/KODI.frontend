@@ -125,6 +125,7 @@ function AddNewProducts() {
     statusId: 1,
     title: "",
     stockLeft: "",
+    totalNumber: "",
     description: "",
     logo: null,
     pdf: null,
@@ -141,6 +142,7 @@ function AddNewProducts() {
     originalPrice: "",
     discountedPrice: "",
     stockLeft: "",
+    totalNumber: "",
   });
 
   const handleSubmit = async (event) => {
@@ -473,7 +475,7 @@ function AddNewProducts() {
                 onBlur={validateInput}
                 required
                 className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
-                placeholder="Enter the price of the product"
+                placeholder={t("pleaseEnterOriginalPrice")}
               />
                <div
               className="h-[24px] text-red-600"
@@ -499,8 +501,36 @@ function AddNewProducts() {
                 onChange={onInputChange}
                 onBlur={validateInput}
                 className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
-                placeholder="Enter the price of the product"
+                placeholder={t("pleaseEnterDiscountedPrice")}
               />
+            </div>
+          </div>
+
+          <div className="relative mb-4">
+            <label
+              htmlFor="place"
+              className="block text-sm font-medium text-gray-600"
+            >
+              {t("totalNumber")} *
+            </label>
+            <input
+              type="text"
+              id="totalNumber"
+              name="totalNumber"
+              value={input.totalNumber}
+              onChange={onInputChange}
+              onBlur={validateInput}
+              required
+              className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
+              placeholder={t("pleaseEnterTotalNumber")}
+            />
+            <div
+              className="h-[24px] text-red-600"
+              style={{
+                visibility: error.title ? "visible" : "hidden",
+              }}
+            >
+              {error.totalNumber}
             </div>
           </div>
 
@@ -520,7 +550,7 @@ function AddNewProducts() {
               onBlur={validateInput}
               required
               className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
-              placeholder={t("pleaseEnterPhone")}
+              placeholder={t("pleaseEnterFastSellingAlert")}
             />
             <div
               className="h-[24px] text-red-600"

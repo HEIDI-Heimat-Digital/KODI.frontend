@@ -81,13 +81,13 @@ function UploadPosts() {
 		image: null,
 		removeImage: false,
 		cityId: "",
-	});
+			});
 
 	const [error, setError] = useState({
 		title: "",
 		description: "",
 		cityId: "",
-	});
+			});
 
 	const [forumId, setForumId] = useState(null);
 	const [forum, setForums] = useState([]);
@@ -98,8 +98,9 @@ function UploadPosts() {
 		const cityIdFromURL = searchParams.get("cityId");
 		const forumIdFromURL = searchParams.get("forumId");
 		const postId = searchParams.get("postId");
+		
 		if (forumIdFromURL && cityIdFromURL && postId) {
-			// setNewPost(false);
+			setNewPost(false);
 			getPostDetails(cityIdFromURL, forumIdFromURL, postId).then(
 				(postResponse) => {
 					const postData = postResponse.data.data;
@@ -110,7 +111,7 @@ function UploadPosts() {
 			);
 		}
 		if (forumIdFromURL && cityIdFromURL) {
-			setNewPost(false);
+			setNewPost(true);
 		}
 	}, []);
 
@@ -134,7 +135,7 @@ function UploadPosts() {
 						...prev,
 						forumId: forumIdFromUrl,
 						cityId: cityIdFromURL,
-						postId: postIdFromURL,
+						// postId: postIdFromURL,
 					}));
 				}
 			} catch (error) {
@@ -167,6 +168,7 @@ function UploadPosts() {
 				// } else {
 				// 	await updateForumPosts(cityId, input, forumId, postId);
 				// }
+				console.log(newPost)
 				const response = newPost
 					? await forumPosts(cityId, forumId, input)
 					: await updateForumPosts(cityId, input, forumId, postId);

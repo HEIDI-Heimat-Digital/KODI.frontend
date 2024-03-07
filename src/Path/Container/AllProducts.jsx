@@ -6,8 +6,10 @@ import { useTranslation } from "react-i18next";
 import "../../index.css";
 import { getUserForums } from "../../Services/forumsApi";
 import { deleteListing } from "../../Services/listingsApi";
+import dummyReceiptPDF from "../../assets/dummyReceipt.png"; // Dummy Image for the time being
 
 const AllProducts = () => {
+  window.scrollTo(0, 0);
   const { t } = useTranslation();
   const [forums, setForums] = useState([]);
   const [pageNo, setPageNo] = useState(1);
@@ -15,6 +17,10 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [text, setText] = useState("");
   const pageSize = 9;
+
+  const openDummyPDF = () => {
+    window.open(dummyReceiptPDF, '_blank');
+  }
 
   const [input, setInput] = useState({
     sloatNumber: "",
@@ -140,8 +146,11 @@ const AllProducts = () => {
       <SideBar />
       <div className="container w-auto px-0 lg:px-5 py-2 bg-slate-600 min-h-screen flex flex-col">
         <div className="h-full">
-          <div className="bg-white mt-10 p-0 space-y-10 overflow-x-auto">
-            <table className="w-full text-sm text-left lg:mt-[2rem] mt-[2rem] text-gray-500 p-6 space-y-10 rounded-lg">
+          <div className="bg-white mt-10 p-0 space-y-0 overflow-x-auto">
+            <h2 className="text-gray-900 text-lg p-6 font-medium title-font">
+              {t("productDetails")}
+            </h2>
+              <table className="w-full text-sm text-left lg:mt-[0rem] mt-[0rem] text-gray-500 p-6 space-y-10 rounded-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th
@@ -149,27 +158,17 @@ const AllProducts = () => {
                     className="px-6 sm:px-6 py-3"
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
                     {t("productName")}
                   </th>
                   <th
                     scope="col"
-                    className="px-6 sm:px-6 py-3 text-center"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
-                    }}
-                  >
-                    {t("price")}
-                  </th>
-                  <th
-                    scope="col"
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
                     {t("stockLeft")}
@@ -180,7 +179,7 @@ const AllProducts = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
                     {t("action")}
@@ -191,7 +190,7 @@ const AllProducts = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
                     {t("shelfNo")}
@@ -202,21 +201,10 @@ const AllProducts = () => {
                     className="px-6 sm:px-6 py-3 text-center "
                     style={{
                       fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
+                      width: "20%",
                     }}
                   >
-                    {t("accept")}
-                  </th>
-
-                  <th
-                    scope="col"
-                    className="px-6 sm:px-6 py-3 text-center "
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      width: "16.66%",
-                    }}
-                  >
-                    {t("reject")}
+                    {t("acceptOrReject")}
                   </th>
                 </tr>
               </thead>
@@ -262,13 +250,6 @@ const AllProducts = () => {
                           </div>
                         </div>
                       </th>
-
-                      <td
-                        className="px-6 py-4 text-center"
-                        style={{ fontFamily: "Poppins, sans-serif" }}
-                      >
-                        {products.price}
-                      </td>
 
                       <td
                         className={`px-6 py-4 text-center ${
@@ -381,25 +362,40 @@ const AllProducts = () => {
                             className="w-full bg-white rounded border border-gray-300 focus:border-black focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out shadow-md"
                             placeholder={t("number")}
                         />
-                        </td>
+                      </td>
 
-                      <td className="px-6 py-4 text-center">
-                        <a
-                          className={`font-medium text-green-600 px-2 hover:underline cursor-pointer`}
-                          style={{ fontFamily: "Poppins, sans-serif" }}
-                        >
-                          {t("accept")}
-                        </a>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <a
-                          className={`font-medium text-red-500 px-2 hover:underline cursor-pointer`}
-                          style={{ fontFamily: "Poppins, sans-serif" }}
-                          onClick={openPopup}
-                        >
-                          {t("reject")}
-                        </a>
-                      </td>
+                        <td className="px-6 py-4 text-center">
+                          <div className="flex justify-center items-center">
+                            <a
+                              className={`font-medium text-green-600 px-2 cursor-pointer`}
+                              style={{ fontFamily: "Poppins, sans-serif" }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1em"
+                                viewBox="0 0 640 512"
+                                className="w-6 h-6 fill-current transition-transform duration-300 transform hover:scale-110"
+                              >
+                                <path d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
+                              </svg>
+                            </a>
+                          
+                            <a
+                              className={`font-medium text-red-600 px-2 cursor-pointer`}
+                              style={{ fontFamily: "Poppins, sans-serif" }}
+                              onClick={openPopup}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1em"
+                                viewBox="0 0 640 512"
+                                className="w-6 h-6 fill-current transition-transform duration-300 transform hover:scale-110"
+                              >
+                                <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                              </svg>
+                            </a>
+                          </div>
+                        </td>
                         
                         {isPopupOpen && (
                           <div className="fixed w-full px-4 sm:px-6 inset-0 z-50 flex justify-center items-center bg-black bg-opacity-75">
@@ -435,6 +431,139 @@ const AllProducts = () => {
                 })}
               </tbody>
             </table>
+          </div>
+
+          <div className="bg-white mt-10 p-0 space-y-0 overflow-x-auto">
+              <h2 className="text-gray-900 text-lg p-6 font-medium title-font">
+                {t("priceDetails")}
+              </h2>
+              <table className="w-full text-sm text-left lg:mt-[0rem] mt-[0rem] text-gray-500 p-6 space-y-10 rounded-lg">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 sm:px-6 py-3"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        width: "16.66%",
+                      }}
+                    >
+                      {t("productName")}
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 sm:px-6 py-3 text-center"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        width: "16.66%",
+                      }}
+                    >
+                      {t("price")}
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 sm:px-6 py-3 text-center"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        width: "16.66%",
+                      }}
+                    >
+                      {t("totalIncome")}
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 sm:px-6 py-3 text-center"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        width: "16.66%",
+                      }}
+                    >
+                      {t("upcomingAmount")}
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="px-6 sm:px-6 py-3 text-center "
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        width: "16.66%",
+                      }}
+                    >
+                      {t("receipt")}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                {ProductsTest.map((products, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className="bg-white border-b hover:bg-gray-50"
+                      >
+                        <th
+                          scope="row"
+                          className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap cursor-pointer"
+                        >
+                          <img
+                            className="w-10 h-10 object-cover rounded-full hidden sm:table-cell"
+                            src={
+                              products.image
+                                ? process.env.REACT_APP_BUCKET_HOST +
+                                  products.image
+                                : process.env.REACT_APP_BUCKET_HOST +
+                                  "admin/DefaultForum.jpeg"
+                            }
+                            onClick={() =>
+                              navigateTo(
+                                `/Forum?forumId=${products.forumId}&cityId=${products.cityId}`
+                              )
+                            }
+                            alt="avatar"
+                          />
+                          <div className="pl-0 sm:pl-3 overflow-hidden max-w-[20rem] sm:max-w-[10rem]">
+                            <div
+                              className="font-medium text-gray-500 cursor-pointer text-center truncate"
+                              style={{ fontFamily: "Poppins, sans-serif" }}
+                              onClick={() =>
+                                navigateTo(
+                                  `/Forum?forumId=${products.forumId}&cityId=${products.cityId}`
+                                )
+                              }
+                            >
+                              {products.productName}
+                            </div>
+                          </div>
+                        </th>
+                        <td
+                          className="px-6 py-4 text-center"
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
+                          {products.price}
+                        </td>
+                        <td
+                          className="px-6 py-4 text-center text-blue-600"
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
+                           {parseFloat(products.price.replace(" Euro", "")) * products.stockSold}
+                        </td>
+                        <td
+                          className="px-6 py-4 text-center text-red-500"
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
+                          {products.upcomingAmount}
+                        </td>
+                        <td
+                          className="font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                          onClick={openDummyPDF}
+                        >
+                          {t("receipt")}
+                        </td>
+                      </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
           </div>
 
           <div className="bottom-5 right-5 mt-5 px-1 py-2 text-xs font-medium text-center float-right cursor-pointer bg-black rounded-xl">
