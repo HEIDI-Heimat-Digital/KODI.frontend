@@ -102,35 +102,35 @@ const UserReports = () => {
                     >
 
                       <td
-                        className="px-6 py-4 font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                        className="px-6 py-4 font-bold text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products?.firstname + " " + products?.lastname}
                       </td>
 
                       <td
-                        className={`px-6 py-4 font-medium text-center`}
+                        className={`px-6 py-4 font-bold text-center`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products.checkinTime}
                       </td>
 
                       <td
-                        className={`px-6 py-4 font-medium text-center`}
+                        className={`px-6 py-4 font-bold text-center`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products.CheckoutTime}
                      </td>
 
                       <td
-                        className={`px-6 py-4 font-medium text-blue-600 hover:underline cursor-pointer text-center`}
+                        className={`px-6 py-4 font-bold text-blue-600 hover:underline cursor-pointer text-center`}
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products.username}
                      </td>
                      
                      <td
-                        className="px-6 py-4 font-medium text-blue-600 hover:underline cursor-pointer text-center"
+                        className="px-6 py-4 font-bold text-blue-600 hover:underline cursor-pointer text-center"
                         style={{ fontFamily: "Poppins, sans-serif" }}
                       >
                         {products.shopName}
