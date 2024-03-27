@@ -3,30 +3,54 @@ import SideBar from "../../Components/SideBar";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../../index.css";
-import { getUserForums, deleteForums } from "../../Services/forumsApi";
+import {getOwnerAppointment, deleteOwnerAppointment} from "../../Services/appointmentOwnerApi"
 
 const MyAppointments = () => {
   const { t } = useTranslation();
-  const [forums, setForums] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [pageNo, setPageNo] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userId, setUserId] = useState()
   const pageSize = 9;
 
-  const fetchForums = useCallback(() => {
-    getUserForums({
+  useEffect(() => {
+    setUserId(window.localStorage.getItem("userId") ||
+    window.sessionStorage.getItem("userId"));
+    const accessToken =
+      window.localStorage.getItem("accessToken") ||
+      window.sessionStorage.getItem("accessToken");
+    const refreshToken =
+      window.localStorage.getItem("refreshToken") ||
+      window.sessionStorage.getItem("refreshToken");
+    if (accessToken || refreshToken) {
+      setIsLoggedIn(true);
+    } else {
+      window.location.href = "/login";
+    }
+  }, [])
+
+  const fetchAppointments = useCallback(() => {
+    getOwnerAppointment(userId, {
       pageNo,
       pageSize,
     }).then((response) => {
-      setForums(response.data.data);
+      getListings(params).then((response) => {
+        const data = response.data.data;
+        setListings(data);
+      });
+      setAppointments(response.data.data);
     });
-  }, [pageNo]);
+  }, [pageNo, userId]);
 
   useEffect(() => {
-    if (pageNo === 1) {
-      fetchForums();
-    } else {
-      fetchForums();
+    if(isLoggedIn && userId) {
+      if (pageNo === 1) {
+        fetchAppointments();
+      } else {
+        fetchAppointments();
+      }
     }
-  }, [fetchForums, pageNo]);
+  }, [fetchAppointments, isLoggedIn, pageNo, userId]);
 
   const navigate = useNavigate();
   const navigateTo = (path) => {
@@ -42,27 +66,21 @@ const MyAppointments = () => {
     onCancel: () => { },
   });
 
-  function handleDelete(forum) {
-    deleteForums(forum.cityId, forum.forumId)
+  function handleDelete(appointment) {
+    deleteOwnerAppointment(appointment.id)
       .then((res) => {
-        getUserForums(
-          forums.filter(
-            (f) => f.cityId !== forum.cityId || f.forumId !== forum.forumId
-          )
-        );
         console.log("Deleted successfully");
-
         setShowConfirmationModal({ visible: false });
         window.location.reload();
       })
       .catch((error) => console.log(error));
   }
 
-  function deleteForumOnClick(forums) {
+  function deleteForumOnClick(appointment) {
     setShowConfirmationModal({
       visible: true,
-      forums,
-      onConfirm: () => handleDelete(forums),
+      appointment,
+      onConfirm: () => handleDelete(appointment),
       onCancel: () => setShowConfirmationModal({ visible: false }),
     });
   }
@@ -141,7 +159,7 @@ const MyAppointments = () => {
                 </tr>
               </thead>
               <tbody>
-                {forums.map((forum, index) => {
+                {appointments.map((forum, index) => {
                   return (
                     <tr
                       key={index}
